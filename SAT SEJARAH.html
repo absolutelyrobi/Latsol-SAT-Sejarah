@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Islam di Nusantara – Modul Sejarah Kelas X</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9962A;
+    --gold-light: #E8C06A;
+    --gold-pale: #F5E5B8;
+    --teal: #1A5F6A;
+    --teal-light: #2A8A9A;
+    --teal-pale: #D4EEF2;
+    --cream: #FAF5E9;
+    --parchment: #F0E8D0;
+    --dark: #1A1208;
+    --dark-mid: #2C1F0A;
+    --ink: #3D2B0D;
+    --text-body: #4A3520;
+    --text-muted: #7A6248;
+    --red-accent: #8B2020;
+    --border-ornate: #C9962A55;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--dark);
+    color: var(--cream);
+    font-family: 'Source Sans 3', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* GEOMETRIC ISLAMIC PATTERN BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(60deg, transparent, transparent 30px, rgba(201,150,42,0.04) 30px, rgba(201,150,42,0.04) 31px),
+      repeating-linear-gradient(-60deg, transparent, transparent 30px, rgba(201,150,42,0.04) 30px, rgba(201,150,42,0.04) 31px),
+      repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(201,150,42,0.03) 30px, rgba(201,150,42,0.03) 31px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* SPLASH SCREEN */
+  #splash {
+    position: fixed;
+    inset: 0;
+    background: var(--dark);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  #splash.hidden { opacity: 0; transform: translateY(-30px); pointer-events: none; }
+
+  .splash-ornament {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    animation: spinSlow 20s linear infinite;
+  }
+  @keyframes spinSlow { to { transform: rotate(360deg); } }
+
+  .splash-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    color: var(--gold);
+    text-align: center;
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+    animation: fadeUp 1s ease 0.5s both;
+  }
+  .splash-subtitle {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: var(--gold-light);
+    opacity: 0.8;
+    text-align: center;
+    animation: fadeUp 1s ease 0.8s both;
+  }
+  .splash-btn {
+    margin-top: 1rem;
+    padding: 0.85rem 2.5rem;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: var(--dark);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    transition: all 0.3s ease;
+    animation: fadeUp 1s ease 1.1s both;
+  }
+  .splash-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,150,42,0.4); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* MAIN LAYOUT */
+  #app { position: relative; z-index: 1; display: none; }
+  #app.visible { display: block; }
+
+  /* TOP NAV */
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(26,18,8,0.95);
+    border-bottom: 1px solid var(--border-ornate);
+    backdrop-filter: blur(12px);
+    padding: 0.75rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .nav-brand {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.85rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+  .nav-tabs {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .nav-tab {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.78rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    color: var(--gold-light);
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.25s;
+    white-space: nowrap;
+    border-radius: 2px;
+  }
+  .nav-tab:hover { border-color: var(--border-ornate); color: var(--gold); }
+  .nav-tab.active {
+    background: rgba(201,150,42,0.15);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .progress-bar-wrap {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .progress-bar {
+    width: 80px;
+    height: 4px;
+    background: rgba(201,150,42,0.2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    transition: width 0.4s ease;
+    border-radius: 2px;
+  }
+  .progress-label { font-size: 0.72rem; color: var(--text-muted); }
+
+  /* HERO SECTION */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+  }
+  .hero-kaligrafi {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    opacity: 0.05;
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border-ornate);
+    padding: 0.35rem 1.2rem;
+    margin-bottom: 2rem;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .hero h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    color: var(--gold);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    max-width: 800px;
+  }
+  .hero-divider {
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.5rem auto;
+  }
+  .hero p {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    color: var(--gold-pale);
+    max-width: 600px;
+    line-height: 1.8;
+    opacity: 0.85;
+    margin-bottom: 3rem;
+  }
+
+  /* SESSION GRID */
+  .session-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .session-card {
+    position: relative;
+    background: rgba(44,31,10,0.6);
+    border: 1px solid var(--border-ornate);
+    padding: 1.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  .session-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,150,42,0.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .session-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+  .session-card:hover::before { opacity: 1; }
+  .card-num {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2.5rem;
+    color: rgba(201,150,42,0.2);
+    position: absolute;
+    top: 1rem;
+    right: 1.2rem;
+    line-height: 1;
+  }
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+  }
+  .card-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 0.5rem;
+  }
+  .card-title {
+    font-family: 'Lora', serif;
+    font-size: 1.15rem;
+    color: var(--gold-light);
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+  .card-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .card-arrow {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.2rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* CONTENT SECTIONS */
+  .section { display: none; padding: 5rem 0 4rem; min-height: 100vh; }
+  .section.active { display: block; animation: sectionIn 0.5s ease; }
+  @keyframes sectionIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+  }
+  .section-header::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.5rem auto 0;
+  }
+  .section-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    color: var(--gold);
+    line-height: 1.3;
+  }
+  .section-intro {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: var(--gold-pale);
+    opacity: 0.8;
+    margin-top: 1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+  }
+
+  /* TEORI TABS */
+  .teori-nav {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .teori-btn {
+    padding: 0.6rem 1.4rem;
+    font-size: 0.85rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    background: rgba(44,31,10,0.8);
+    border: 1px solid var(--border-ornate);
+    color: var(--gold-light);
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.05em;
+  }
+  .teori-btn:hover, .teori-btn.active {
+    background: rgba(201,150,42,0.2);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .teori-panel { display: none; }
+  .teori-panel.active { display: block; animation: sectionIn 0.4s ease; }
+
+  .teori-card {
+    background: rgba(44,31,10,0.7);
+    border: 1px solid var(--border-ornate);
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media (max-width: 640px) { .teori-card { grid-template-columns: 1fr; } }
+
+  .teori-visual { position: relative; }
+  .teori-visual svg { width: 100%; max-width: 280px; }
+  .teori-info { }
+  .teori-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 0.3rem;
+  }
+  .teori-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    line-height: 1.3;
+  }
+  .teori-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.9rem;
+    align-items: flex-start;
+  }
+  .teori-row-key {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    min-width: 90px;
+    flex-shrink: 0;
+    padding-top: 0.1rem;
+  }
+  .teori-row-val {
+    font-family: 'Lora', serif;
+    font-size: 0.9rem;
+    color: var(--gold-pale);
+    line-height: 1.7;
+  }
+  .badge-tokoh {
+    display: inline-block;
+    background: rgba(201,150,42,0.12);
+    border: 1px solid rgba(201,150,42,0.3);
+    color: var(--gold-light);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    margin: 0.15rem;
+    border-radius: 2px;
+  }
+  .bukti-list { list-style: none; }
+  .bukti-list li {
+    font-family: 'Lora', serif;
+    font-size: 0.88rem;
+    color: var(--gold-pale);
+    padding: 0.4rem 0 0.4rem 1.2rem;
+    position: relative;
+    line-height: 1.6;
+    border-bottom: 1px solid rgba(201,150,42,0.08);
+  }
+  .bukti-list li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.5rem;
+    top: 0.7rem;
+  }
+  .analisis-box {
+    background: rgba(26,95,106,0.15);
+    border-left: 3px solid var(--teal-light);
+    padding: 1rem 1.2rem;
+    margin-top: 1rem;
+    border-radius: 0 4px 4px 0;
+  }
+  .analisis-box p {
+    font-family: 'Lora', serif;
+    font-size: 0.88rem;
+    color: var(--teal-pale);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  /* SALURAN CARDS */
+  .saluran-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+  .saluran-item {
+    background: rgba(44,31,10,0.6);
+    border: 1px solid var(--border-ornate);
+    padding: 1.5rem;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .saluran-item:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .saluran-icon { width: 40px; height: 40px; margin-bottom: 1rem; }
+  .saluran-name {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+  }
+  .saluran-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* KERAJAAN ACCORDION */
+  .kerajaan-list { display: flex; flex-direction: column; gap: 0.8rem; }
+  .kerajaan-item {
+    background: rgba(44,31,10,0.6);
+    border: 1px solid var(--border-ornate);
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .kerajaan-item.open { border-color: var(--gold); }
+  .kerajaan-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .kerajaan-header:hover { background: rgba(201,150,42,0.06); }
+  .kerajaan-num {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    color: rgba(201,150,42,0.4);
+    min-width: 32px;
+    flex-shrink: 0;
+  }
+  .kerajaan-meta { flex: 1; }
+  .kerajaan-name {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    color: var(--gold-light);
+    font-weight: 600;
+  }
+  .kerajaan-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+  }
+  .kerajaan-toggle {
+    color: var(--gold);
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+  }
+  .kerajaan-item.open .kerajaan-toggle { transform: rotate(180deg); }
+
+  .kerajaan-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .kerajaan-item.open .kerajaan-body { max-height: 1000px; }
+  .kerajaan-content {
+    padding: 0 1.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 600px) { .kerajaan-content { grid-template-columns: 1fr; } }
+
+  .kinfo-block { }
+  .kinfo-title {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(201,150,42,0.15);
+    padding-bottom: 0.4rem;
+  }
+  .kinfo-row {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 0.6rem;
+    align-items: flex-start;
+  }
+  .kinfo-key {
+    font-size: 0.73rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    min-width: 70px;
+    flex-shrink: 0;
+    padding-top: 0.15rem;
+  }
+  .kinfo-val {
+    font-family: 'Lora', serif;
+    font-size: 0.88rem;
+    color: var(--gold-pale);
+    line-height: 1.6;
+  }
+  .kanalisis {
+    grid-column: 1 / -1;
+    background: rgba(139,32,32,0.1);
+    border-left: 3px solid var(--red-accent);
+    padding: 1rem 1.2rem;
+    border-radius: 0 4px 4px 0;
+  }
+  .kanalisis-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #C06060;
+    margin-bottom: 0.4rem;
+  }
+  .kanalisis p {
+    font-family: 'Lora', serif;
+    font-size: 0.88rem;
+    color: #DDA0A0;
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  /* PENGARUH TABS */
+  .pengaruh-tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2rem; }
+  .pengaruh-btn {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.8rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    background: rgba(44,31,10,0.8);
+    border: 1px solid var(--border-ornate);
+    color: var(--gold-light);
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.04em;
+  }
+  .pengaruh-btn.active {
+    background: rgba(201,150,42,0.2);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .pengaruh-panel { display: none; }
+  .pengaruh-panel.active { display: block; animation: sectionIn 0.4s ease; }
+
+  .pengaruh-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media (max-width: 680px) { .pengaruh-content { grid-template-columns: 1fr; } }
+
+  .pengaruh-visual {
+    background: rgba(44,31,10,0.5);
+    border: 1px solid var(--border-ornate);
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .pengaruh-visual svg { max-width: 100%; }
+  .pengaruh-text { }
+  .pengaruh-subtitle {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+  .pengaruh-body {
+    font-family: 'Lora', serif;
+    font-size: 0.92rem;
+    color: var(--gold-pale);
+    line-height: 1.8;
+    opacity: 0.9;
+  }
+  .pengaruh-contoh {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .contoh-item {
+    background: rgba(44,31,10,0.8);
+    border: 1px solid var(--border-ornate);
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .contoh-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    flex-shrink: 0;
+    transform: rotate(45deg);
+  }
+  .contoh-text {
+    font-size: 0.85rem;
+    color: var(--gold-pale);
+    line-height: 1.5;
+  }
+  .contoh-text strong { color: var(--gold-light); font-weight: 600; }
+
+  /* QUIZ SECTION */
+  .quiz-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .quiz-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-ornate);
+  }
+  .quiz-status-num {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1rem;
+    color: var(--gold);
+  }
+  .quiz-score-badge {
+    background: rgba(201,150,42,0.15);
+    border: 1px solid var(--border-ornate);
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+    color: var(--gold-light);
+  }
+  .quiz-q-card {
+    background: rgba(44,31,10,0.7);
+    border: 1px solid var(--border-ornate);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .quiz-q-text {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    color: var(--gold-pale);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 0.75rem; }
+  .quiz-opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.9rem 1.1rem;
+    background: rgba(26,18,8,0.6);
+    border: 1px solid rgba(201,150,42,0.15);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Lora', serif;
+    font-size: 0.92rem;
+    color: var(--gold-pale);
+    line-height: 1.5;
+    text-align: left;
+  }
+  .quiz-opt:hover:not(:disabled) { border-color: var(--gold); background: rgba(201,150,42,0.08); }
+  .quiz-opt.correct { border-color: #4A9A6A; background: rgba(74,154,106,0.12); color: #A0DDB8; }
+  .quiz-opt.wrong { border-color: var(--red-accent); background: rgba(139,32,32,0.12); color: #DDA0A0; }
+  .quiz-opt:disabled { cursor: default; }
+  .opt-letter {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.8rem;
+    color: var(--gold);
+    min-width: 20px;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .quiz-feedback {
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    font-family: 'Lora', serif;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    font-style: italic;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct { background: rgba(74,154,106,0.1); border-left: 3px solid #4A9A6A; color: #A0DDB8; }
+  .quiz-feedback.wrong { background: rgba(139,32,32,0.1); border-left: 3px solid var(--red-accent); color: #DDA0A0; }
+  .quiz-nav-btns { display: flex; gap: 1rem; justify-content: flex-end; }
+  .btn-quiz {
+    padding: 0.7rem 1.8rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: var(--dark);
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,150,42,0.3); }
+  .btn-secondary {
+    background: rgba(44,31,10,0.8);
+    border: 1px solid var(--border-ornate);
+    color: var(--gold-light);
+  }
+  .btn-secondary:hover { border-color: var(--gold); }
+
+  .quiz-result {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: rgba(44,31,10,0.7);
+    border: 1px solid var(--border-ornate);
+    display: none;
+  }
+  .quiz-result.show { display: block; animation: sectionIn 0.5s ease; }
+  .result-score {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 3.5rem;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .result-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .result-msg {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: var(--gold-pale);
+    line-height: 1.8;
+    max-width: 400px;
+    margin: 0 auto 2rem;
+  }
+
+  /* GLOSARIUM */
+  .glosarium-list { display: flex; flex-direction: column; gap: 0.6rem; }
+  .glos-item {
+    background: rgba(44,31,10,0.5);
+    border: 1px solid var(--border-ornate);
+    padding: 1rem 1.3rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+  .glos-term {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    color: var(--gold-light);
+    font-size: 0.95rem;
+    min-width: 150px;
+    flex-shrink: 0;
+  }
+  .glos-def {
+    font-family: 'Lora', serif;
+    font-size: 0.88rem;
+    color: var(--gold-pale);
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border-ornate);
+    margin-top: 4rem;
+  }
+  .footer p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+  .footer-ornament {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .ornament-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+  }
+  .ornament-line.right { background: linear-gradient(90deg, var(--gold), transparent); }
+  .ornament-diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
+
+  /* SCROLL TO TOP */
+  .scroll-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: all 0.3s;
+    opacity: 0;
+    z-index: 90;
+  }
+  .scroll-top.visible { opacity: 1; }
+  .scroll-top:hover { transform: translateY(-3px); }
+</style>
+</head>
+<body>
+
+<!-- SPLASH SCREEN -->
+<div id="splash">
+  <div class="splash-ornament">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#C9962A" stroke-width="0.8">
+        <polygon points="100,10 190,55 190,145 100,190 10,145 10,55" opacity="0.6"/>
+        <polygon points="100,25 175,62 175,138 100,175 25,138 25,62" opacity="0.5"/>
+        <polygon points="100,40 160,70 160,130 100,160 40,130 40,70" opacity="0.4"/>
+        <polygon points="100,55 145,77 145,123 100,145 55,123 55,77" opacity="0.3"/>
+        <circle cx="100" cy="100" r="60" opacity="0.3"/>
+        <circle cx="100" cy="100" r="45" opacity="0.25"/>
+        <circle cx="100" cy="100" r="30" opacity="0.2"/>
+        <line x1="10" y1="55" x2="100" y2="100" opacity="0.15"/>
+        <line x1="190" y1="55" x2="100" y2="100" opacity="0.15"/>
+        <line x1="10" y1="145" x2="100" y2="100" opacity="0.15"/>
+        <line x1="190" y1="145" x2="100" y2="100" opacity="0.15"/>
+        <line x1="100" y1="10" x2="100" y2="100" opacity="0.15"/>
+        <line x1="100" y1="190" x2="100" y2="100" opacity="0.15"/>
+        <circle cx="100" cy="100" r="6" fill="#C9962A" opacity="0.8"/>
+      </g>
+    </svg>
+  </div>
+  <div class="splash-title">Islam di Nusantara</div>
+  <div class="splash-subtitle">Modul Sejarah Kelas X · Kurikulum Merdeka</div>
+  <button class="splash-btn" onclick="enterApp()">Mulai Belajar →</button>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+
+  <!-- TOP NAV -->
+  <nav class="top-nav">
+    <div class="nav-brand">Islam Nusantara</div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showSection('home')">Beranda</button>
+      <button class="nav-tab" onclick="showSection('teori')">Teori Masuk</button>
+      <button class="nav-tab" onclick="showSection('kerajaan')">Kerajaan Islam</button>
+      <button class="nav-tab" onclick="showSection('pengaruh')">Pengaruh Islam</button>
+      <button class="nav-tab" onclick="showSection('quiz')">Kuis</button>
+      <button class="nav-tab" onclick="showSection('glosarium')">Glosarium</button>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <span class="progress-label" id="progressLabel">0%</span>
+    </div>
+  </nav>
+
+  <!-- HOME SECTION -->
+  <div id="sec-home" class="section active">
+    <div class="hero">
+      <!-- Background ornament -->
+      <svg class="hero-kaligrafi" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <g stroke="#C9962A" stroke-width="0.5">
+          <circle cx="250" cy="250" r="200"/>
+          <circle cx="250" cy="250" r="170"/>
+          <circle cx="250" cy="250" r="140"/>
+          <polygon points="250,50 450,175 450,325 250,450 50,325 50,175" opacity="0.5"/>
+          <polygon points="250,80 420,187 420,313 250,420 80,313 80,187" opacity="0.4"/>
+        </g>
+      </svg>
+
+      <div class="hero-badge">Sejarah Indonesia · Kelas X SMA</div>
+      <h1>Masuk, Berkembang & Pengaruh Islam di Nusantara</h1>
+      <div class="hero-divider"></div>
+      <p>Pelajari proses panjang perjalanan Islam menyeberangi samudra, mendirikan kerajaan-kerajaan besar, dan meninggalkan jejak peradaban yang hingga kini mewarnai kehidupan Indonesia.</p>
+
+      <div class="session-grid">
+        <div class="session-card" onclick="showSection('teori')">
+          <div class="card-num">I</div>
+          <svg class="card-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4z" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1.5"/>
+            <path d="M24 8 L28 20 L40 20 L30 28 L34 40 L24 32 L14 40 L18 28 L8 20 L20 20 Z" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="1"/>
+            <circle cx="24" cy="24" r="4" fill="#C9962A" opacity="0.8"/>
+          </svg>
+          <div class="card-tag">Bab 1</div>
+          <div class="card-title">Teori Masuknya Islam & Saluran Penyebaran</div>
+          <div class="card-desc">Empat teori besar: Gujarat, Persia, Arab, dan Tiongkok — beserta strategi dakwah yang mengakar damai.</div>
+          <div class="card-arrow">Jelajahi <span>→</span></div>
+        </div>
+
+        <div class="session-card" onclick="showSection('kerajaan')">
+          <div class="card-num">II</div>
+          <svg class="card-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="28" width="32" height="16" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1.5"/>
+            <path d="M14 28V20M24 28V16M34 28V20" stroke="#C9962A" stroke-width="1.5"/>
+            <path d="M14 20 L18 14 L22 20" fill="rgba(201,150,42,0.2)" stroke="#C9962A" stroke-width="1"/>
+            <path d="M22 16 L24 10 L26 16" fill="rgba(201,150,42,0.2)" stroke="#C9962A" stroke-width="1"/>
+            <path d="M26 20 L30 14 L34 20" fill="rgba(201,150,42,0.2)" stroke="#C9962A" stroke-width="1"/>
+          </svg>
+          <div class="card-tag">Bab 2</div>
+          <div class="card-title">Kerajaan-Kerajaan Islam di Nusantara</div>
+          <div class="card-desc">8 kesultanan dari Samudera Pasai hingga Ternate-Tidore — politik, ekonomi, dan warisan peradabannya.</div>
+          <div class="card-arrow">Jelajahi <span>→</span></div>
+        </div>
+
+        <div class="session-card" onclick="showSection('pengaruh')">
+          <div class="card-num">III</div>
+          <svg class="card-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 36 Q16 20 24 28 Q32 36 40 12" stroke="#C9962A" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="28" r="3" fill="#C9962A" opacity="0.7"/>
+            <path d="M14 10 Q24 4 34 10 Q44 16 44 28 Q44 40 34 44 Q24 48 14 44 Q4 40 4 28 Q4 16 14 10Z" fill="rgba(201,150,42,0.06)" stroke="rgba(201,150,42,0.3)" stroke-width="0.8"/>
+          </svg>
+          <div class="card-tag">Bab 3</div>
+          <div class="card-title">Pengaruh Islam terhadap Kehidupan Masyarakat</div>
+          <div class="card-desc">Akulturasi luar biasa: arsitektur, bahasa, kalender, pendidikan, dan tradisi yang lahir dari perpaduan budaya.</div>
+          <div class="card-arrow">Jelajahi <span>→</span></div>
+        </div>
+
+        <div class="session-card" onclick="showSection('quiz')">
+          <div class="card-num">✦</div>
+          <svg class="card-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="8" width="32" height="32" rx="4" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1.5"/>
+            <path d="M18 22 Q18 16 24 16 Q30 16 30 22 Q30 28 24 28" stroke="#C9962A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <circle cx="24" cy="34" r="2" fill="#C9962A"/>
+          </svg>
+          <div class="card-tag">Evaluasi</div>
+          <div class="card-title">Kuis Interaktif & Evaluasi Pemahaman</div>
+          <div class="card-desc">Uji pemahamanmu dengan pertanyaan analitis berbasis HOTS sesuai standar UTBK.</div>
+          <div class="card-arrow">Mulai Kuis <span>→</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEORI SECTION -->
+  <div id="sec-teori" class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-tag">Bab I · Proses Masuknya Islam</div>
+        <div class="section-title">Teori Masuk & Saluran Penyebaran</div>
+        <p class="section-intro">Empat teori besar dengan bukti, tokoh, dan analisis kritisnya — serta strategi dakwah yang membuat Islam diterima secara damai.</p>
+      </div>
+
+      <!-- TEORI TABS -->
+      <div style="margin-bottom:3rem">
+        <div class="teori-nav">
+          <button class="teori-btn active" onclick="showTeori('gujarat')">Gujarat</button>
+          <button class="teori-btn" onclick="showTeori('persia')">Persia</button>
+          <button class="teori-btn" onclick="showTeori('arab')">Arab / Makkah</button>
+          <button class="teori-btn" onclick="showTeori('tiongkok')">Tiongkok</button>
+        </div>
+
+        <!-- Gujarat -->
+        <div id="teori-gujarat" class="teori-panel active">
+          <div class="teori-card">
+            <div class="teori-visual">
+              <svg viewBox="0 0 260 280" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <!-- Ship illustration -->
+                <path d="M40 200 Q130 160 220 200 L210 230 L50 230 Z" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="1.5"/>
+                <path d="M130 60 L130 200" stroke="#C9962A" stroke-width="1.5"/>
+                <path d="M130 60 L75 160 L130 160 L130 60 Z" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1"/>
+                <path d="M130 60 L185 140 L130 140 L130 60 Z" fill="rgba(201,150,42,0.05)" stroke="#C9962A" stroke-width="0.8"/>
+                <!-- Waves -->
+                <path d="M30 240 Q60 232 90 240 Q120 248 150 240 Q180 232 210 240" stroke="rgba(42,138,154,0.5)" stroke-width="1" fill="none"/>
+                <path d="M20 250 Q55 242 90 250 Q125 258 160 250 Q195 242 230 250" stroke="rgba(42,138,154,0.4)" stroke-width="0.8" fill="none"/>
+                <!-- Location pin -->
+                <circle cx="180" cy="80" r="20" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1.2"/>
+                <text x="180" y="86" text-anchor="middle" fill="#C9962A" font-size="11" font-family="serif">G</text>
+                <!-- Arrow -->
+                <path d="M158 95 L130 160" stroke="#C9962A" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+                <defs>
+                  <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                    <path d="M0,0 L6,3 L0,6 Z" fill="#C9962A"/>
+                  </marker>
+                </defs>
+                <text x="190" y="72" fill="#C9962A" font-size="9" font-family="sans-serif" opacity="0.7">Gujarat</text>
+                <text x="130" y="258" text-anchor="middle" fill="rgba(201,150,42,0.6)" font-size="10" font-family="serif">Nusantara</text>
+              </svg>
+            </div>
+            <div class="teori-info">
+              <div class="teori-label">Teori I</div>
+              <div class="teori-name">Teori Gujarat</div>
+              <div class="teori-row">
+                <div class="teori-row-key">Waktu</div>
+                <div class="teori-row-val">Abad ke-13 Masehi</div>
+              </div>
+              <div class="teori-row">
+                <div class="teori-row-key">Asal</div>
+                <div class="teori-row-val">Gujarat, India</div>
+              </div>
+              <div class="teori-row">
+                <div class="teori-row-key">Tokoh</div>
+                <div class="teori-row-val">
+                  <span class="badge-tokoh">Snouck Hurgronje</span>
+                  <span class="badge-tokoh">W.F. Stutterheim</span>
+                </div>
+              </div>
+              <div class="teori-row">
+                <div class="teori-row-key">Bukti</div>
+                <div class="teori-row-val">
+                  <ul class="bukti-list">
+                    <li>Corak batu nisan Sultan Malik As-Saleh mirip nisan di Gujarat</li>
+                    <li>Catatan perjalanan Marco Polo (1292 M) di Perlak</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="analisis-box">
+                <p>⚠ Kelemahan: Mazhab Islam di Gujarat adalah <strong>Hanafi</strong>, sedangkan mayoritas Muslim Nusantara menganut <strong>Mazhab Syafi'i</strong> — sebuah kontradiksi besar yang melemahkan teori ini.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Persia -->
+        <div id="teori-persia" class="teori-panel">
+          <div class="teori-card">
+            <div class="teori-visual">
+              <svg viewBox="0 0 260 280" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <ellipse cx="130" cy="80" rx="50" ry="60" fill="rgba(201,150,42,0.08)" stroke="#C9962A" stroke-width="1.2"/>
+                <path d="M100 50 Q130 20 160 50 Q185 75 160 100 Q140 120 130 140 Q120 120 100 100 Q75 75 100 50Z" fill="rgba(201,150,42,0.06)" stroke="#C9962A" stroke-width="0.8"/>
+                <circle cx="130" cy="80" r="15" fill="rgba(201,150,42,0.2)" stroke="#C9962A" stroke-width="1"/>
+                <text x="130" y="86" text-anchor="middle" fill="#C9962A" font-size="14" font-family="serif">☽</text>
+                <!-- Decorative Persia pattern -->
+                <path d="M30 180 L50 160 L70 180 L50 200Z" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="0.8"/>
+                <path d="M190 180 L210 160 L230 180 L210 200Z" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="0.8"/>
+                <path d="M90 200 L130 150 L170 200" stroke="#C9962A" stroke-width="1" fill="none"/>
+                <text x="130" y="240" text-anchor="middle" fill="rgba(201,150,42,0.5)" font-size="10">تصوف</text>
+                <text x="130" y="260" text-anchor="middle" fill="rgba(201,150,42,0.4)" font-size="9">Tasawuf Persia</text>
+              </svg>
+            </div>
+            <div class="teori-info">
+              <div class="teori-label">Teori II</div>
+              <div class="teori-name">Teori Persia</div>
+              <div class="teori-row">
+                <div class="teori-row-key">Waktu</div>
+                <div class="teori-row-val">Abad ke-13 Masehi</div>
+              </div>
+              <div class="teori-row">
+                <div class="teori-row-key">Asal</div>
+                <div class="teori-row-val">Persia (Iran)</div>
+              </div>
+              <div class="teori-row">
+                <div class="teori-row-key">Tokoh</div>
+                <div class="teori-row-val"><span class="badge-tokoh">Hoesein Djajadiningrat</span></div>
+              </div>
+              <div class="teori-row">
+                <div class="teori-row-key">Bukti</div>
+                <div class="teori-row-val">
+                  <ul class="bukti-list">
+                    <li>Tradisi Tabot/Tabuik (Sumatra) — memperingati 10 Muharram khas Syiah Persia</li>
+                    <li>Penggunaan gelar "Syah" pada raja</li>
+                    <li>Kesamaan ajaran Tasawuf (mistisisme Islam)</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="analisis-box">
+                <p>⚠ Kelemahan: Kurangnya bukti sejarah keberadaan kerajaan bercorak Syiah di Nusantara. Mayoritas kerajaan Islam Nusantara bermazhab Sunni, bukan Syiah.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arab -->
+        <div id="teori-arab" class="teori-panel">
+          <div class="teori-card">
+            <div class="teori-visual">
+              <svg viewBox="0 0 260 280" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <!-- Ka'bah simplified -->
+                <rect x="90" y="60" width="80" height="80" fill="rgba(26,18,8,0.8)" stroke="#C9962A" stroke-width="2"/>
+                <rect x="105" y="110" width="50" height="30" fill="rgba(201,150,42,0.3)" stroke="#C9962A" stroke-width="1"/>
+                <path d="M90 60 L130 30 L170 60" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1.5"/>
+                <!-- Pilgrims -->
+                <circle cx="60" cy="180" r="8" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="0.8"/>
+                <circle cx="90" cy="185" r="8" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="0.8"/>
+                <circle cx="170" cy="180" r="8" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="0.8"/>
+                <circle cx="200" cy="185" r="8" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="0.8"/>
+                <!-- Arrows toward Ka'bah -->
+                <path d="M60 170 L110 150" stroke="rgba(201,150,42,0.4)" stroke-width="0.8" stroke-dasharray="3,2"/>
+                <path d="M200 170 L150 150" stroke="rgba(201,150,42,0.4)" stroke-width="0.8" stroke-dasharray="3,2"/>
+                <text x="130" y="240" text-anchor="middle" fill="rgba(201,150,42,0.6)" font-size="10" font-family="serif">Mazhab Syafi'i</text>
+                <text x="130" y="258" text-anchor="middle" fill="rgba(201,150,42,0.4)" font-size="9">Makkah → Nusantara</text>
+              </svg>
+            </div>
+            <div class="teori-info">
+              <div class="teori-label">Teori III</div>
+              <div class="teori-name">Teori Arab / Makkah</div>
+              <div class="teori-row">
+                <div class="teori-row-key">Waktu</div>
+                <div class="teori-row-val">Abad ke-7 Masehi (paling awal!)</div>
+              </div>
+              <div class="teori-row">
+                <div class="teori-row-key">Asal</div>
+                <div class="teori-row-val">Semenanjung Arab (Makkah / Mesir)</div>
+              </div>
+              <div class="teori-row">
+                <div class="teori-row-key">Tokoh</div>
+                <div class="teori-row-val">
+                  <span class="badge-tokoh">Buya Hamka</span>
+                  <span class="badge-tokoh">J.C. van Leur</span>
+                </div>
+              </div>
+              <div class="teori-row">
+                <div class="teori-row-key">Bukti</div>
+                <div class="teori-row-val">
+                  <ul class="bukti-list">
+                    <li>Perkampungan pedagang Arab di Barus, Sumatra (abad ke-7)</li>
+                    <li>Mayoritas Muslim Nusantara menganut Mazhab Syafi'i — sama seperti di Makkah</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="analisis-box" style="border-color: #4A9A6A; background: rgba(74,154,106,0.1);">
+                <p style="color: #A0DDB8;">✓ Kelebihan: Paling rasional! Kesamaan mazhab Syafi'i antara Makkah dan Nusantara adalah bukti kuat asal-usul Islam di Indonesia langsung dari tanah Arab.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tiongkok -->
+        <div id="teori-tiongkok" class="teori-panel">
+          <div class="teori-card">
+            <div class="teori-visual">
+              <svg viewBox="0 0 260 280" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <!-- Pagoda / Masjid atap tumpang -->
+                <rect x="95" y="220" width="70" height="20" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1"/>
+                <rect x="100" y="200" width="60" height="22" fill="rgba(201,150,42,0.12)" stroke="#C9962A" stroke-width="1"/>
+                <path d="M85 202 L130 188 L175 202Z" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="1"/>
+                <rect x="108" y="178" width="44" height="12" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="0.8"/>
+                <path d="M95 180 L130 165 L165 180Z" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="1"/>
+                <rect x="116" y="152" width="28" height="14" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="0.8"/>
+                <path d="M105 154 L130 140 L155 154Z" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="1"/>
+                <path d="M130 140 L130 110" stroke="#C9962A" stroke-width="1.5"/>
+                <!-- Ship Cheng Ho -->
+                <path d="M30 90 Q60 75 90 90 L85 115 L35 115 Z" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1"/>
+                <path d="M60 50 L60 90" stroke="#C9962A" stroke-width="1"/>
+                <path d="M60 50 L40 80 L60 80" fill="rgba(201,150,42,0.08)" stroke="#C9962A" stroke-width="0.8"/>
+                <text x="60" y="130" text-anchor="middle" fill="rgba(201,150,42,0.5)" font-size="8">Cheng Ho</text>
+                <path d="M90 100 L115 150" stroke="rgba(201,150,42,0.3)" stroke-dasharray="3,2" stroke-width="0.8"/>
+                <text x="130" y="260" text-anchor="middle" fill="rgba(201,150,42,0.5)" font-size="9">Arsitektur Tumpang · Pagoda</text>
+              </svg>
+            </div>
+            <div class="teori-info">
+              <div class="teori-label">Teori IV</div>
+              <div class="teori-name">Teori Tiongkok</div>
+              <div class="teori-row">
+                <div class="teori-row-key">Waktu</div>
+                <div class="teori-row-val">Abad ke-15 Masehi</div>
+              </div>
+              <div class="teori-row">
+                <div class="teori-row-key">Asal</div>
+                <div class="teori-row-val">Tiongkok (Cina)</div>
+              </div>
+              <div class="teori-row">
+                <div class="teori-row-key">Tokoh</div>
+                <div class="teori-row-val">
+                  <span class="badge-tokoh">Slamet Muljana</span>
+                  <span class="badge-tokoh">Sumanto Al Qurtuby</span>
+                </div>
+              </div>
+              <div class="teori-row">
+                <div class="teori-row-key">Bukti</div>
+                <div class="teori-row-val">
+                  <ul class="bukti-list">
+                    <li>Catatan Ma Huan tentang komunitas Muslim Tionghoa di pesisir Jawa</li>
+                    <li>Peran Laksamana Cheng Ho dalam penyebaran Islam</li>
+                    <li>Arsitektur masjid beratap tumpang mirip pagoda</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="analisis-box">
+                <p>⚠ Kelemahan: Teori ini lebih menjelaskan penyebaran Islam di Jawa, bukan asal-usul awal masuknya Islam ke Nusantara secara keseluruhan.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SALURAN PENYEBARAN -->
+      <div class="section-header">
+        <div class="section-tag">Bab I · Sub-materi</div>
+        <div class="section-title" style="font-size:1.5rem;">Saluran Penyebaran Islam</div>
+        <p class="section-intro">Enam jalur dakwah yang membuat Islam diterima tanpa paksaan di seluruh Nusantara.</p>
+      </div>
+      <div class="saluran-grid">
+        <div class="saluran-item">
+          <svg class="saluran-icon" viewBox="0 0 40 40" fill="none"><path d="M8 20 Q14 12 20 18 Q26 24 32 16" stroke="#C9962A" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="8" cy="20" r="3" fill="rgba(201,150,42,0.3)" stroke="#C9962A" stroke-width="1"/><circle cx="32" cy="16" r="3" fill="rgba(201,150,42,0.3)" stroke="#C9962A" stroke-width="1"/><path d="M4 28 L36 28" stroke="rgba(42,138,154,0.4)" stroke-width="1" stroke-dasharray="3,2"/></svg>
+          <div class="saluran-name">Perdagangan</div>
+          <div class="saluran-desc">Pedagang Muslim menunggu angin muson di pelabuhan, berinteraksi dengan warga lokal, dan mencontohkan akhlak Islam dalam berniaga.</div>
+        </div>
+        <div class="saluran-item">
+          <svg class="saluran-icon" viewBox="0 0 40 40" fill="none"><circle cx="14" cy="14" r="6" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1.2"/><circle cx="26" cy="14" r="6" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1.2"/><path d="M14 20 Q20 30 26 20" stroke="#C9962A" stroke-width="1.2" fill="none"/><path d="M10 34 Q20 26 30 34" stroke="#C9962A" stroke-width="1" fill="none" stroke-dasharray="2,2"/></svg>
+          <div class="saluran-name">Perkawinan</div>
+          <div class="saluran-desc">Pedagang/ulama menikahi putri bangsawan lokal. Syarat pernikahan adalah memeluk Islam, mempercepat penyebaran di kalangan elite.</div>
+        </div>
+        <div class="saluran-item">
+          <svg class="saluran-icon" viewBox="0 0 40 40" fill="none"><rect x="8" y="16" width="24" height="18" rx="2" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1.2"/><path d="M8 22 L32 22" stroke="#C9962A" stroke-width="0.8"/><path d="M14 10 L14 16M20 8 L20 16M26 10 L26 16" stroke="#C9962A" stroke-width="1.2" stroke-linecap="round"/><circle cx="20" cy="29" r="3" fill="rgba(201,150,42,0.2)"/></svg>
+          <div class="saluran-name">Pendidikan (Pesantren)</div>
+          <div class="saluran-desc">Ulama mendirikan pesantren sebagai pusat kaderisasi. Santri yang lulus pulang ke desa masing-masing meneruskan dakwah.</div>
+        </div>
+        <div class="saluran-item">
+          <svg class="saluran-icon" viewBox="0 0 40 40" fill="none"><path d="M20 6 Q30 14 30 24 Q30 34 20 36 Q10 34 10 24 Q10 14 20 6Z" fill="rgba(201,150,42,0.08)" stroke="#C9962A" stroke-width="1.2"/><path d="M20 12 Q26 18 26 24 Q26 30 20 32 Q14 30 14 24 Q14 18 20 12Z" fill="rgba(201,150,42,0.08)" stroke="#C9962A" stroke-width="0.8"/><circle cx="20" cy="24" r="4" fill="rgba(201,150,42,0.25)" stroke="#C9962A" stroke-width="1"/></svg>
+          <div class="saluran-name">Tasawuf</div>
+          <div class="saluran-desc">Ajaran sufisme sangat mudah diterima karena mirip mistisisme lokal Hindu-Buddha. Islam masuk tanpa merusak budaya yang ada.</div>
+        </div>
+        <div class="saluran-item">
+          <svg class="saluran-icon" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="30" rx="14" ry="5" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1"/><path d="M10 30 L10 18 Q10 10 20 10 Q30 10 30 18 L30 30" stroke="#C9962A" stroke-width="1.2" fill="none"/><path d="M15 16 Q20 12 25 16" stroke="#C9962A" stroke-width="0.8" fill="none"/><circle cx="20" cy="22" r="3" fill="rgba(201,150,42,0.2)"/></svg>
+          <div class="saluran-name">Kesenian & Wayang</div>
+          <div class="saluran-desc">Sunan Kalijaga menyisipkan syahadat dalam lakon Wayang Kulit. Gamelan digunakan dalam perayaan agama untuk menarik warga.</div>
+        </div>
+        <div class="saluran-item">
+          <svg class="saluran-icon" viewBox="0 0 40 40" fill="none"><path d="M20 8 L28 16 L28 32 L12 32 L12 16 Z" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1.2"/><path d="M20 8 L20 4M20 4 L16 8M20 4 L24 8" stroke="#C9962A" stroke-width="0.8"/><path d="M16 22 L24 22M16 26 L24 26" stroke="#C9962A" stroke-width="0.8"/><path d="M18 18 L22 18" stroke="#C9962A" stroke-width="0.8"/></svg>
+          <div class="saluran-name">Politik</div>
+          <div class="saluran-desc">Ketika raja memeluk Islam, rakyatnya mengikuti. Konsep patron-klien membuat Islamisasi berlangsung cepat dari atas ke bawah.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KERAJAAN SECTION -->
+  <div id="sec-kerajaan" class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-tag">Bab II · Kekuatan Politik Islam</div>
+        <div class="section-title">Kerajaan-Kerajaan Islam di Nusantara</div>
+        <p class="section-intro">8 kesultanan besar yang membentuk wajah peradaban Islam Indonesia — dari Sabang hingga Maluku.</p>
+      </div>
+
+      <div class="kerajaan-list" id="kerajaanList"></div>
+    </div>
+  </div>
+
+  <!-- PENGARUH SECTION -->
+  <div id="sec-pengaruh" class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-tag">Bab III · Akulturasi Peradaban</div>
+        <div class="section-title">Pengaruh Islam terhadap Kehidupan Masyarakat</div>
+        <p class="section-intro">Islam tidak menghapus budaya lokal, melainkan memadu-padankannya menjadi peradaban baru yang kaya dan unik.</p>
+      </div>
+
+      <div class="pengaruh-tabs">
+        <button class="pengaruh-btn active" onclick="showPengaruh('agama')">Agama & Kepercayaan</button>
+        <button class="pengaruh-btn" onclick="showPengaruh('arsitektur')">Arsitektur</button>
+        <button class="pengaruh-btn" onclick="showPengaruh('bahasa')">Bahasa & Aksara</button>
+        <button class="pengaruh-btn" onclick="showPengaruh('kalender')">Sistem Kalender</button>
+        <button class="pengaruh-btn" onclick="showPengaruh('pendidikan')">Pendidikan</button>
+        <button class="pengaruh-btn" onclick="showPengaruh('tradisi')">Upacara & Tradisi</button>
+      </div>
+
+      <!-- Agama -->
+      <div id="pen-agama" class="pengaruh-panel active">
+        <div class="pengaruh-content">
+          <div class="pengaruh-visual">
+            <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <circle cx="120" cy="110" r="80" fill="rgba(201,150,42,0.05)" stroke="#C9962A" stroke-width="1" stroke-dasharray="4,4"/>
+              <circle cx="80" cy="90" r="45" fill="rgba(201,150,42,0.08)" stroke="#C9962A" stroke-width="1"/>
+              <circle cx="160" cy="90" r="45" fill="rgba(26,95,106,0.12)" stroke="rgba(42,138,154,0.5)" stroke-width="1"/>
+              <ellipse cx="120" cy="90" rx="22" ry="30" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="1"/>
+              <text x="60" y="92" text-anchor="middle" fill="rgba(201,150,42,0.7)" font-size="9">Animisme</text>
+              <text x="60" y="105" text-anchor="middle" fill="rgba(201,150,42,0.5)" font-size="8">Hindu-Buddha</text>
+              <text x="180" y="92" text-anchor="middle" fill="rgba(42,138,154,0.9)" font-size="9">Islam</text>
+              <text x="120" y="88" text-anchor="middle" fill="#C9962A" font-size="9" font-weight="bold">Akulturasi</text>
+              <text x="120" y="100" text-anchor="middle" fill="rgba(201,150,42,0.7)" font-size="8">Sinkretisme</text>
+              <text x="120" y="170" text-anchor="middle" fill="rgba(201,150,42,0.5)" font-size="10">Islam Kejawen · Selamatan · Tahlilan</text>
+            </svg>
+          </div>
+          <div class="pengaruh-text">
+            <div class="pengaruh-subtitle">Sinkretisme & Islam Kejawen</div>
+            <div class="pengaruh-body">Islam berpadu dengan kepercayaan animisme dan Hindu-Buddha yang sudah mengakar. Hasilnya adalah budaya Islam yang khas Nusantara — tidak menghapus identitas lokal, tetapi menyerapnya ke dalam bingkai syariat.</div>
+            <div class="pengaruh-contoh">
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Selamatan/Kenduri</strong> — Pemujaan roh leluhur diserap menjadi tradisi doa bersama dengan doa-doa Islam</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Ziarah Kubur</strong> — Tradisi menghormati leluhur diarahkan menjadi mendoakan almarhum dengan syariat Islam</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Islam Kejawen</strong> — Sub-kultur di Jawa yang mengamalkan syariat Islam sekaligus tradisi spiritual Jawa peninggalan masa lalu</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arsitektur -->
+      <div id="pen-arsitektur" class="pengaruh-panel">
+        <div class="pengaruh-content">
+          <div class="pengaruh-visual">
+            <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <!-- Masjid with tumpang roof -->
+              <rect x="50" y="160" width="140" height="50" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="1.2"/>
+              <rect x="65" y="140" width="110" height="22" fill="rgba(201,150,42,0.12)" stroke="#C9962A" stroke-width="1"/>
+              <path d="M40 142 L120 118 L200 142Z" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="1.2"/>
+              <rect x="78" y="120" width="84" height="20" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="0.8"/>
+              <path d="M60 122 L120 98 L180 122Z" fill="rgba(201,150,42,0.18)" stroke="#C9962A" stroke-width="1"/>
+              <rect x="90" y="100" width="60" height="20" fill="rgba(201,150,42,0.08)" stroke="#C9962A" stroke-width="0.8"/>
+              <path d="M78 102 L120 78 L162 102Z" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="1"/>
+              <path d="M120 78 L120 60" stroke="#C9962A" stroke-width="1.5"/>
+              <path d="M115 65 Q120 55 125 65" stroke="#C9962A" stroke-width="1"/>
+              <!-- Labels -->
+              <text x="120" y="20" text-anchor="middle" fill="rgba(201,150,42,0.6)" font-size="9">Atap Tumpang</text>
+              <text x="120" y="32" text-anchor="middle" fill="rgba(201,150,42,0.4)" font-size="8">(Akulturasi Meru Hindu)</text>
+              <path d="M120 34 L120 74" stroke="rgba(201,150,42,0.3)" stroke-dasharray="2,2" stroke-width="0.8"/>
+              <!-- Menara Kudus shape -->
+              <rect x="185" y="130" width="20" height="60" fill="rgba(42,138,154,0.1)" stroke="rgba(42,138,154,0.5)" stroke-width="1"/>
+              <rect x="182" y="118" width="26" height="14" fill="rgba(42,138,154,0.12)" stroke="rgba(42,138,154,0.4)" stroke-width="0.8"/>
+              <path d="M182 120 L195 108 L208 120Z" fill="rgba(42,138,154,0.15)" stroke="rgba(42,138,154,0.5)" stroke-width="0.8"/>
+              <text x="196" y="202" text-anchor="middle" fill="rgba(42,138,154,0.6)" font-size="7">Menara</text>
+              <text x="196" y="212" text-anchor="middle" fill="rgba(42,138,154,0.5)" font-size="7">Kudus</text>
+            </svg>
+          </div>
+          <div class="pengaruh-text">
+            <div class="pengaruh-subtitle">Arsitektur Masjid & Makam</div>
+            <div class="pengaruh-body">Akulturasi paling terlihat pada bangunan bersejarah. Masjid-masjid tua tidak berbentuk kubah Arab — mereka mengadopsi bentuk asli Nusantara dengan sentuhan Islam.</div>
+            <div class="pengaruh-contoh">
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Atap Tumpang</strong> — Atap bersusun gasal (3 atau 5) yang berasal dari bentuk Meru pada pura Hindu</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Menara Kudus</strong> — Bentuknya menyerupai candi langgam Jawa Timur / Bale Kulkul Bali</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Makam di Bukit</strong> — Melanjutkan tradisi punden berundak masa megalitikum (tempat tinggi = tempat suci)</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Letak Masjid</strong> — Di sebelah barat Alun-Alun dan berdekatan dengan Keraton (konsep makrokosmos)</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bahasa -->
+      <div id="pen-bahasa" class="pengaruh-panel">
+        <div class="pengaruh-content">
+          <div class="pengaruh-visual">
+            <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <!-- Arabic script representation -->
+              <rect x="30" y="40" width="180" height="50" rx="4" fill="rgba(201,150,42,0.08)" stroke="#C9962A" stroke-width="1"/>
+              <text x="120" y="72" text-anchor="middle" fill="#C9962A" font-size="20" font-family="serif">بِسْمِ اللَّهِ</text>
+              <text x="120" y="110" text-anchor="middle" fill="rgba(201,150,42,0.6)" font-size="11">Aksara Jawi / Pegon</text>
+              <!-- Word mapping -->
+              <rect x="30" y="130" width="80" height="28" rx="2" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="0.8"/>
+              <text x="70" y="149" text-anchor="middle" fill="rgba(201,150,42,0.8)" font-size="10">عقل → Akal</text>
+              <rect x="130" y="130" width="80" height="28" rx="2" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="0.8"/>
+              <text x="170" y="149" text-anchor="middle" fill="rgba(201,150,42,0.8)" font-size="10">علم → Ilmu</text>
+              <rect x="30" y="170" width="80" height="28" rx="2" fill="rgba(42,138,154,0.1)" stroke="rgba(42,138,154,0.4)" stroke-width="0.8"/>
+              <text x="70" y="189" text-anchor="middle" fill="rgba(42,138,154,0.9)" font-size="10">عدل → Adil</text>
+              <rect x="130" y="170" width="80" height="28" rx="2" fill="rgba(42,138,154,0.1)" stroke="rgba(42,138,154,0.4)" stroke-width="0.8"/>
+              <text x="170" y="189" text-anchor="middle" fill="rgba(42,138,154,0.9)" font-size="10">شعب → Rakyat</text>
+            </svg>
+          </div>
+          <div class="pengaruh-text">
+            <div class="pengaruh-subtitle">Bahasa & Aksara Jawi/Pegon</div>
+            <div class="pengaruh-body">Kedatangan Islam membawa revolusi literasi. Aksara Arab dipakai untuk menuliskan bahasa Melayu (Jawi) dan Jawa (Pegon), menciptakan khazanah sastra Islam yang kaya.</div>
+            <div class="pengaruh-contoh">
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Aksara Jawi/Pegon</strong> — Huruf Arab dipakai untuk menulis bahasa Melayu/Jawa; digunakan masif dalam kitab kuning dan sastra pesantren</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Kosakata Serapan</strong> — Abad, adil, ilmu, akal, rakyat, musyawarah, majelis, hakim, derajat — semua berasal dari bahasa Arab</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Sastra Islam</strong> — Karya seperti Bustanussalatin dan Sastra Gending menjadi warisan intelektual besar</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kalender -->
+      <div id="pen-kalender" class="pengaruh-panel">
+        <div class="pengaruh-content">
+          <div class="pengaruh-visual">
+            <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <!-- Sun (Saka/Hindu) -->
+              <circle cx="70" cy="90" r="35" fill="rgba(201,150,42,0.08)" stroke="#C9962A" stroke-width="1.2"/>
+              <circle cx="70" cy="90" r="20" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="1"/>
+              <path d="M70 45 L70 55M70 125 L70 135M35 90 L45 90M95 90 L105 90M47 62 L54 69M86 111 L93 118M47 118 L54 111M86 69 L93 62" stroke="#C9962A" stroke-width="1.2" stroke-linecap="round"/>
+              <text x="70" y="155" text-anchor="middle" fill="rgba(201,150,42,0.6)" font-size="9">Tahun Saka (Hindu)</text>
+              <text x="70" y="167" text-anchor="middle" fill="rgba(201,150,42,0.5)" font-size="8">Matahari</text>
+              <!-- Moon (Hijriah) -->
+              <path d="M175 60 Q155 75 155 90 Q155 105 175 120 Q155 115 145 100 Q140 95 140 90 Q140 85 145 80 Q155 65 175 60Z" fill="rgba(42,138,154,0.15)" stroke="rgba(42,138,154,0.6)" stroke-width="1.2"/>
+              <text x="170" y="155" text-anchor="middle" fill="rgba(42,138,154,0.7)" font-size="9">Kalender Hijriah</text>
+              <text x="170" y="167" text-anchor="middle" fill="rgba(42,138,154,0.5)" font-size="8">Bulan</text>
+              <!-- Fusion arrow -->
+              <path d="M108 90 L132 90" stroke="#C9962A" stroke-width="1.5" marker-end="url(#arr2)"/>
+              <path d="M132 90 L108 90" stroke="rgba(42,138,154,0.6)" stroke-width="0.8" stroke-dasharray="3,2"/>
+              <defs><marker id="arr2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#C9962A"/></marker></defs>
+              <text x="120" y="85" text-anchor="middle" fill="#C9962A" font-size="8">+</text>
+              <rect x="45" y="185" width="150" height="24" rx="2" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="0.8"/>
+              <text x="120" y="201" text-anchor="middle" fill="#C9962A" font-size="10">Kalender Jawa Islam (Sultan Agung)</text>
+            </svg>
+          </div>
+          <div class="pengaruh-text">
+            <div class="pengaruh-subtitle">Kalender Jawa Islam — Karya Akulturasi Jenius</div>
+            <div class="pengaruh-body">Sultan Agung dari Mataram menciptakan sistem kalender yang memadukan tahun Saka Hindu (berbasis matahari) dengan perhitungan Hijriah Islam (berbasis bulan) — sebuah karya genius yang menunjukkan kedalaman penerimaan Islam tanpa membuang tradisi lokal.</div>
+            <div class="pengaruh-contoh">
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Nama bulan di-Jawa-kan</strong> — Muharram → Suro, Safar → Sapar, Rabiul Awal → Mulud</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Diciptakan 1633 M</strong> oleh Sultan Agung Hanyokrokusumo dari Mataram Islam</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Digunakan hingga kini</strong> untuk menentukan hari baik pernikahan, selamatan, dan upacara adat Jawa</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pendidikan -->
+      <div id="pen-pendidikan" class="pengaruh-panel">
+        <div class="pengaruh-content">
+          <div class="pengaruh-visual">
+            <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <!-- Pesantren building -->
+              <rect x="60" y="100" width="120" height="90" fill="rgba(201,150,42,0.08)" stroke="#C9962A" stroke-width="1.5"/>
+              <path d="M50 102 L120 60 L190 102Z" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="1.2"/>
+              <path d="M120 60 L120 40" stroke="#C9962A" stroke-width="1.5"/>
+              <path d="M115 45 Q120 35 125 45" stroke="#C9962A" stroke-width="1"/>
+              <!-- Santri dots -->
+              <circle cx="85" cy="155" r="6" fill="rgba(201,150,42,0.2)" stroke="#C9962A" stroke-width="0.8"/>
+              <circle cx="105" cy="155" r="6" fill="rgba(201,150,42,0.2)" stroke="#C9962A" stroke-width="0.8"/>
+              <circle cx="125" cy="155" r="6" fill="rgba(201,150,42,0.2)" stroke="#C9962A" stroke-width="0.8"/>
+              <circle cx="145" cy="155" r="6" fill="rgba(201,150,42,0.2)" stroke="#C9962A" stroke-width="0.8"/>
+              <!-- Kiai -->
+              <circle cx="120" cy="130" r="10" fill="rgba(201,150,42,0.3)" stroke="#C9962A" stroke-width="1.2"/>
+              <text x="120" y="134" text-anchor="middle" fill="#C9962A" font-size="9">K</text>
+              <text x="120" y="20" text-anchor="middle" fill="rgba(201,150,42,0.6)" font-size="10">Pesantren</text>
+              <text x="120" y="33" text-anchor="middle" fill="rgba(201,150,42,0.4)" font-size="8">Transformasi dari Mandala Hindu</text>
+            </svg>
+          </div>
+          <div class="pengaruh-text">
+            <div class="pengaruh-subtitle">Pesantren — Transformasi Sistem Pendidikan</div>
+            <div class="pengaruh-body">Sistem asrama/mandala peninggalan masa Hindu-Buddha ditransformasi menjadi lembaga pesantren. Kiai menggantikan posisi resi/brahmana sebagai pemimpin spiritual dan intelektual masyarakat.</div>
+            <div class="pengaruh-contoh">
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Sistem Pondok</strong> — Santri menetap di asrama (pondok) untuk fokus mendalami ilmu agama dan kitab kuning</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Kiai sebagai Figur Sentral</strong> — Menggantikan peran resi Hindu/brahmana sebagai tokoh spiritual dan moral</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Kaderisasi Ulama</strong> — Pesantren menjadi kekuatan utama akar rumput pendidikan Islam yang tersebar ke seluruh pelosok Nusantara</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tradisi -->
+      <div id="pen-tradisi" class="pengaruh-panel">
+        <div class="pengaruh-content">
+          <div class="pengaruh-visual">
+            <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <!-- Gunungan shape -->
+              <path d="M120 20 L80 100 L60 160 L180 160 L160 100 Z" fill="rgba(201,150,42,0.08)" stroke="#C9962A" stroke-width="1.5"/>
+              <!-- Decorative details on gunungan -->
+              <path d="M100 80 Q120 60 140 80 Q120 100 100 80Z" fill="rgba(201,150,42,0.15)" stroke="#C9962A" stroke-width="0.8"/>
+              <path d="M90 110 Q120 90 150 110 Q120 130 90 110Z" fill="rgba(201,150,42,0.12)" stroke="#C9962A" stroke-width="0.8"/>
+              <path d="M75 140 Q120 120 165 140 Q120 155 75 140Z" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="0.8"/>
+              <!-- Gamelan symbols below -->
+              <ellipse cx="70" cy="185" rx="14" ry="6" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="0.8"/>
+              <ellipse cx="120" cy="185" rx="14" ry="6" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="0.8"/>
+              <ellipse cx="170" cy="185" rx="14" ry="6" fill="rgba(201,150,42,0.1)" stroke="#C9962A" stroke-width="0.8"/>
+              <text x="120" y="210" text-anchor="middle" fill="rgba(201,150,42,0.5)" font-size="8">Gunungan Grebeg Maulud</text>
+            </svg>
+          </div>
+          <div class="pengaruh-text">
+            <div class="pengaruh-subtitle">Upacara & Tradisi Akulturasi</div>
+            <div class="pengaruh-body">Berbagai upacara adat disuntikkan nafas Islam agar lebih mudah diterima masyarakat. Hasilnya adalah tradisi-tradisi unik yang hanya ada di Nusantara.</div>
+            <div class="pengaruh-contoh">
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Grebeg Maulud</strong> — Upacara keraton memperingati Maulid Nabi; ciri khasnya adalah memperebutkan Gunungan hasil bumi simbol sedekah raja</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Sekaten</strong> — Gamelan pusaka ditabuh di halaman masjid; nama berasal dari Syahadatain (Dua Kalimat Syahadat)</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Tahlilan</strong> — Doa bersama pada hari 1, 7, 40, 100, dan 1000 kematian; konsep harinya pra-Islam, isi doanya murni Islam</div></div>
+              <div class="contoh-item"><div class="contoh-dot"></div><div class="contoh-text"><strong>Ziarah Wali Songo</strong> — Menghormati makam para wali sebagai bentuk doa kepada Allah, menggantikan kultus leluhur masa lalu</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ SECTION -->
+  <div id="sec-quiz" class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-tag">Evaluasi · HOTS Level</div>
+        <div class="section-title">Kuis Interaktif</div>
+        <p class="section-intro">Uji pemahamanmu dengan pertanyaan analitis. Klik jawaban, baca penjelasan, dan pelajari kesalahanmu.</p>
+      </div>
+      <div class="quiz-wrap">
+        <div id="quizContainer"></div>
+        <div id="quizResult" class="quiz-result">
+          <span class="result-score" id="resultScore">0/10</span>
+          <div class="result-label">Skor Akhir Kuis</div>
+          <p class="result-msg" id="resultMsg"></p>
+          <button class="btn-quiz btn-primary" onclick="restartQuiz()">Ulangi Kuis →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLOSARIUM SECTION -->
+  <div id="sec-glosarium" class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-tag">Referensi</div>
+        <div class="section-title">Glosarium Istilah</div>
+        <p class="section-intro">Kumpulan istilah penting yang perlu kamu kuasai untuk menjawab soal ujian.</p>
+      </div>
+      <div class="glosarium-list">
+        <div class="glos-item"><div class="glos-term">Akulturasi</div><div class="glos-def">Perpaduan dua kebudayaan atau lebih yang menghasilkan budaya baru tanpa menghilangkan identitas kebudayaan aslinya.</div></div>
+        <div class="glos-item"><div class="glos-term">Sinkretisme</div><div class="glos-def">Percampuran atau penyatuan berbagai aliran pemikiran atau agama/kepercayaan, menghasilkan praktik baru yang memadukan unsur-unsur dari keduanya.</div></div>
+        <div class="glos-item"><div class="glos-term">Islam Kejawen</div><div class="glos-def">Sub-kultur di Jawa yang mengamalkan syariat Islam namun tetap memegang teguh tradisi spiritual dan mistis Jawa peninggalan masa pra-Islam.</div></div>
+        <div class="glos-item"><div class="glos-term">Tasawuf / Sufisme</div><div class="glos-def">Pendekatan mistis dalam Islam yang menekankan pengalaman batin dan hubungan langsung antara manusia dan Tuhan, sangat efektif sebagai media dakwah di Nusantara.</div></div>
+        <div class="glos-item"><div class="glos-term">Aksara Jawi/Pegon</div><div class="glos-def">Sistem penulisan menggunakan huruf Arab yang dimodifikasi untuk menuliskan bahasa Melayu (Jawi) atau bahasa Jawa (Pegon).</div></div>
+        <div class="glos-item"><div class="glos-term">Wali Songo</div><div class="glos-def">Sembilan orang wali (tokoh penyebar Islam) yang sangat berpengaruh dalam Islamisasi Jawa, masing-masing memiliki strategi dakwah yang unik.</div></div>
+        <div class="glos-item"><div class="glos-term">Mazhab Syafi'i</div><div class="glos-def">Salah satu dari empat mazhab fiqh (hukum Islam) Sunni yang didirikan oleh Imam Syafi'i. Mayoritas Muslim di Nusantara dan Makkah menganut mazhab ini.</div></div>
+        <div class="glos-item"><div class="glos-term">Atap Tumpang</div><div class="glos-def">Bentuk atap masjid yang bersusun (biasanya 3 atau 5 tingkat), merupakan akulturasi dari bentuk Meru pada pura Hindu.</div></div>
+        <div class="glos-item"><div class="glos-term">Devide et Impera</div><div class="glos-def">Strategi kolonial "adu domba" (pecah belah) yang digunakan VOC/Belanda untuk melemahkan kerajaan-kerajaan Nusantara dengan memanfaatkan konflik internal.</div></div>
+        <div class="glos-item"><div class="glos-term">Perjanjian Bongaya (1667)</div><div class="glos-def">Perjanjian antara VOC dan Kerajaan Gowa-Tallo yang sangat merugikan Gowa, mengakhiri dominasi perdagangan bebas pribumi di Indonesia Timur dan menyerahkan monopoli rempah kepada VOC.</div></div>
+        <div class="glos-item"><div class="glos-term">Uli Lima & Uli Siwa</div><div class="glos-def">Persekutuan kerajaan di Maluku. Uli Lima (persekutuan lima bersaudara) dipimpin Ternate; Uli Siwa (sembilan bersaudara) dipimpin Tidore.</div></div>
+        <div class="glos-item"><div class="glos-term">Grebeg Maulud</div><div class="glos-def">Upacara tradisi keraton Jawa (terutama Yogyakarta dan Surakarta) untuk memperingati Maulid Nabi Muhammad SAW, ditandai dengan arak-arakan Gunungan hasil bumi.</div></div>
+        <div class="glos-item"><div class="glos-term">Kitab Kuning</div><div class="glos-def">Literatur Islam klasik berbahasa Arab atau Melayu/Jawa yang ditulis oleh ulama-ulama Islam, menjadi bahan kajian utama di pesantren.</div></div>
+        <div class="glos-item"><div class="glos-term">Resource Curse</div><div class="glos-def">Fenomena "kutukan sumber daya alam" — kekayaan alam yang melimpah justru mengundang intervensi dan penjajahan dari kekuatan luar yang ingin menguasainya.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line right"></div>
+    </div>
+    <p>Modul Sejarah Kelas X · Kurikulum Merdeka<br>Masuk, Berkembang, dan Pengaruh Islam di Indonesia<br><span style="opacity:0.5">Dibuat untuk pembelajaran interaktif siswa SMA</span></p>
+  </footer>
+</div>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const kerajaanData = [
+  {
+    nama: "Kesultanan Perlak", lokasi: "Aceh Timur, ujung timur Pulau Sumatra", waktu: "840 M – 1292 M", raja: "Sultan Alaiddin Syed Maulana Abdul Aziz Shah (pendiri); Sultan Makhdum Alaiddin Malik Muhammad Amin Shah II (raja terakhir)",
+    wilayah: "Wilayah Perlak (kini Peureulak, Aceh Timur) di tepi Selat Malaka",
+    politik: "Dianggap sebagai kesultanan Islam tertua di Nusantara dan di Asia Tenggara. Berdiri sekitar tahun 840 M, mendahului Samudera Pasai. Mengalami dua periode: Dinasti Alaiddin (Syiah) dan Dinasti Makhdum (Sunni). Berakhir akibat konflik internal dan tekanan dari Samudera Pasai.",
+    ekonomi: "Bandar niaga penting di jalur Selat Malaka. Mengekspor kapur barus, kayu gaharu, dan hasil hutan yang diminati pedagang Arab, Persia, dan India.",
+    sosial: "Pertama kali memadukan Islam Syiah dan Sunni dalam satu dinasti secara bergantian. Catatan Marco Polo menyebut Perlak sebagai daerah Islam pada 1292 M.",
+    peninggalan: "Makam Sultan-sultan Perlak di kompleks Meucat Keude Perlak; naskah Izhharul Haqq fi Mamlakat Ferlak (kronik sejarah Perlak)",
+    analisis: "Perlak merupakan bukti terkuat bahwa Islam masuk ke Nusantara jauh lebih awal dari perkiraan Teori Gujarat (abad ke-13). Berdirinya Perlak pada 840 M mendukung Teori Arab yang menyatakan Islam masuk sejak abad ke-7–9 M melalui jalur perdagangan Selat Malaka.",
+    color: "#C9962A", wilayah_tag: "Sumatra · Aceh"
+  },
+  {
+    nama: "Samudera Pasai", lokasi: "Lhokseumawe, Aceh Utara — pesisir utara Sumatra", waktu: "1267 M – 1521 M", raja: "Sultan Malik As-Saleh (pendiri & raja pertama); Sultan Malik Az-Zahir (masa kejayaan)",
+    wilayah: "Pesisir utara Aceh, menghadap Selat Malaka",
+    politik: "Kerajaan Islam pertama yang memiliki kelengkapan struktur pemerintahan Islam (sultan, kadi, ulama). Berhubungan diplomatik dengan Kesultanan Delhi dan Dinasti Yuan Tiongkok. Ditaklukkan Portugis tahun 1521 M.",
+    ekonomi: "Bandar transit utama di Selat Malaka; pengekspor lada, sutra, dan kapur barus. Menggunakan mata uang Dirham emas sebagai alat transaksi internasional.",
+    sosial: "Pusat studi hukum Islam Mazhab Syafi'i pertama di Nusantara. Budaya Melayu bernafaskan Islam terbentuk di sini dan menyebar ke seluruh Asia Tenggara.",
+    peninggalan: "Makam Sultan Malik As-Saleh dengan nisan bercorak Gujarat; Koin Dirham Emas; Catatan Ibnu Batutah tentang kunjungannya ke Pasai (1345 M)",
+    analisis: "Samudera Pasai adalah titik tolak penyebaran Islam terorganisir di Asia Tenggara. Kekuatan ekonomi berbasis perdagangan internasional membuktikan bahwa Islam dan kapital pedagang Muslim berjalan beriringan dalam membangun peradaban Nusantara.",
+    color: "#C9962A", wilayah_tag: "Sumatra · Aceh"
+  },
+  {
+    nama: "Aceh Darussalam", lokasi: "Banda Aceh — ujung utara Pulau Sumatra", waktu: "1496 M – 1904 M", raja: "Ali Mughayat Syah (pendiri); Sultan Iskandar Muda (puncak kejayaan); Sultanah Safiatuddin (ratu pertama)",
+    wilayah: "Seluruh Aceh, dengan pengaruh hingga pesisir barat Sumatra dan Semenanjung Melayu",
+    politik: "Kekuatan militer luar biasa — berhasil merebut Deli, Aru, dan Johor. Melakukan serangan besar ke Portugis di Malaka (1537, 1547, 1629). Melahirkan empat sultanah (ratu) yang memimpin secara sah.",
+    ekonomi: "Memegang hegemoni perdagangan lada dan timah setelah jatuhnya Malaka ke Portugis (1511). Menjadi penguasa tunggal jalur dagang Selat Malaka setelah Demak.",
+    sosial: "Lahirnya perpaduan Hukum Adat (Adat Meukuta Alam) dan Hukum Islam. Melahirkan ulama-ulama besar: Hamzah Fansuri, Syamsuddin as-Sumatrani, Nuruddin ar-Raniri, Abdurrauf as-Singkili.",
+    peninggalan: "Masjid Raya Baiturrahman; Meriam Lada Sicupak; Gunongan; Kitab Bustanussalatin; Taman Sari Gunongan",
+    analisis: "Aceh adalah bukti bahwa jatuhnya Malaka ke Portugis (1511) justru melahirkan kekuatan Islam baru yang lebih besar. Aceh membuktikan kemampuan kerajaan Islam Nusantara bersaing secara militer dan diplomatik melawan kekuatan kolonial Eropa.",
+    color: "#C9962A", wilayah_tag: "Sumatra · Aceh"
+  },
+  {
+    nama: "Kesultanan Jambi", lokasi: "Tepian Sungai Batanghari, Jambi — Sumatra Tengah", waktu: "Abad ke-13 M – 1904 M", raja: "Sultan Abdul Kahar (raja Islam pertama yang resmi); Sultan Thaha Saifuddin (pahlawan nasional, anti-Belanda)",
+    wilayah: "Lembah Sungai Batanghari dan daerah pedalaman Sumatra Tengah",
+    politik: "Bermula dari kerajaan Hindu-Buddha Melayu Tua yang kemudian memeluk Islam secara penuh pada abad ke-13. Menjalin hubungan dengan Johor dan Aceh. Sultan Thaha Saifuddin melakukan perlawanan bersenjata terhadap Belanda hingga gugur tahun 1904.",
+    ekonomi: "Menguasai perdagangan lada hitam, rotan, damar, dan hasil hutan Sumatra melalui jalur Sungai Batanghari ke Selat Malaka. Lada Jambi terkenal hingga ke pasar Eropa.",
+    sosial: "Terbentuknya adat Melayu Jambi yang berpedoman 'Adat bersendi syarak, syarak bersendi Kitabullah' — cerminan kesatuan adat dan Islam yang khas Melayu.",
+    peninggalan: "Masjid Agung Al-Falah Jambi; Makam Sultan Thaha Saifuddin; Kompleks Candi Muaro Jambi (peninggalan pra-Islam yang berakulturasi); naskah Melayu Jambi",
+    analisis: "Jambi memperlihatkan pola Islamisasi khas Melayu: bertahap, damai, dan berakar kuat pada adat. Perlawanan Sultan Thaha terhadap Belanda menjadikannya simbol perlawanan seorang raja Islam yang memilih syahid daripada tunduk pada kolonialisme.",
+    color: "#2A8A9A", wilayah_tag: "Sumatra · Jambi"
+  },
+  {
+    nama: "Kesultanan Siak Sri Indrapura", lokasi: "Tepian Sungai Siak, Riau — Sumatra Timur", waktu: "1723 M – 1945 M", raja: "Raja Kecil (pendiri); Sultan Syarif Kasim II (raja terakhir, pahlawan nasional)",
+    wilayah: "Kawasan Sungai Siak, Riau daratan, dan sebagian pesisir timur Sumatra",
+    politik: "Didirikan Raja Kecil yang mengklaim sebagai putra Sultan Mahmud Syah II dari Johor. Menjadi kekuatan penting di Selat Malaka pada abad ke-18. Sultan Syarif Kasim II menyerahkan harta kerajaan untuk mendukung perjuangan kemerdekaan RI dan diakui sebagai Pahlawan Nasional.",
+    ekonomi: "Mengandalkan perdagangan rotan, kayu, gambir, dan hasil perkebunan di sepanjang Sungai Siak. Memiliki armada perdagangan yang kuat di Selat Malaka.",
+    sosial: "Budaya Melayu Riau yang kental dengan pengaruh Islam. Siak menjadi pusat budaya Melayu Islam yang penting di pesisir timur Sumatra.",
+    peninggalan: "Istana Maimah (Istana Siak Sri Indrapura) yang megah dengan arsitektur Eropa-Melayu; Masjid Syahabuddin; Meriam Seri Negara; Kota Siak yang bersejarah",
+    analisis: "Siak adalah contoh kesultanan Melayu yang mampu bertahan di tengah tekanan Belanda (VOC) melalui strategi diplomasi dan perdagangan. Keberadaan Sultan Syarif Kasim II yang merelakan seluruh harta demi kemerdekaan RI menjadikan Siak simbol nasionalisme berbasis Islam.",
+    color: "#2A8A9A", wilayah_tag: "Sumatra · Riau"
+  },
+  {
+    nama: "Kesultanan Demak", lokasi: "Demak, pesisir utara Jawa Tengah", waktu: "1475 M – 1548 M", raja: "Raden Patah (pendiri); Pati Unus 'Pangeran Sabrang Lor'; Sultan Trenggono (puncak kejayaan)",
+    wilayah: "Jawa Tengah pesisir utara (Pasisiran), dengan pengaruh hingga Palembang dan Kalimantan",
+    politik: "Kerajaan Islam pertama di Jawa. Berdiri atas dukungan penuh Wali Songo. Mengirim ekspedisi militer Pati Unus untuk menyerang Portugis di Malaka (1513). Runtuh akibat konflik suksesi internal pasca Sultan Trenggono.",
+    ekonomi: "Negara agraris-maritim: penghasil beras utama Jawa Tengah sekaligus memiliki pelabuhan niaga Demak dan Jepara yang sibuk melayani kapal-kapal internasional.",
+    sosial: "Wali Songo berperan sebagai dewan penasihat agama dan penggerak dakwah Islam di Jawa melalui seni (wayang, gamelan, tembang) dan pesantren.",
+    peninggalan: "Masjid Agung Demak dengan Soko Tatal (tiang dari potongan kayu, karya Sunan Kalijaga); Pintu Bledeg (Pintu Petir); Makam Sunan Kalijaga di Kadilangu",
+    analisis: "Demak adalah jembatan sejarah antara peradaban Hindu-Buddha Majapahit dan peradaban Islam Jawa. Legitimasi Demak yang bertumpu pada otoritas Wali Songo menunjukkan bahwa kekuasaan politik Islam Jawa lahir dari sinergi antara kekuatan politik dan otoritas agama.",
+    color: "#2A8A9A", wilayah_tag: "Jawa · Jawa Tengah"
+  },
+  {
+    nama: "Kesultanan Cirebon", lokasi: "Cirebon, pesisir utara Jawa Barat", waktu: "1430 M – 1677 M (berdaulat penuh)", raja: "Sunan Gunung Jati / Syarif Hidayatullah (pendiri); Panembahan Ratu I (masa kejayaan)",
+    wilayah: "Cirebon dan sekitarnya, menjadi batas budaya Jawa-Sunda",
+    politik: "Didirikan Sunan Gunung Jati, salah satu dari Wali Songo. Cirebon menjadi pusat penyebaran Islam di Jawa Barat sekaligus penghubung budaya Jawa dan Sunda. Setelah wafatnya Panembahan Ratu II, kerajaan terpecah menjadi Kesultanan Kasepuhan dan Kanoman (1677).",
+    ekonomi: "Pelabuhan niaga yang ramai — menjadi titik temu pedagang dari seluruh Nusantara dan mancanegara. Komoditas utama: beras, garam, dan hasil bumi Jawa Barat.",
+    sosial: "Terkenal sebagai pusat seni batik khas Cirebon (Motif Mega Mendung dan Wadasan — akulturasi motif Tiongkok-Islam). Menjadi pusat penyebaran Islam untuk wilayah Jawa Barat dan Banten.",
+    peninggalan: "Keraton Kasepuhan dan Kanoman; Masjid Agung Sang Cipta Rasa (dibangun Wali Songo); Motif Batik Mega Mendung; Makam Sunan Gunung Jati di Gunung Sembung",
+    analisis: "Cirebon membuktikan bahwa Islam dapat menjadi jembatan lintas budaya. Perpaduan budaya Jawa, Sunda, Arab, dan Tiongkok dalam seni batik Mega Mendung adalah akulturasi paling visual dari Islam Nusantara yang diakui dunia (UNESCO).",
+    color: "#C9962A", wilayah_tag: "Jawa · Jawa Barat"
+  },
+  {
+    nama: "Kesultanan Pajang", lokasi: "Pajang (kini Kartasura/Solo), pedalaman Jawa Tengah", waktu: "1549 M – 1587 M", raja: "Sultan Hadiwijaya (Jaka Tingkir) — satu-satunya raja",
+    wilayah: "Pedalaman Jawa Tengah (sekitar Surakarta/Solo), mewarisi wilayah Demak",
+    politik: "Berdiri setelah meruntuhkan kekuasaan Arya Penangsang dari Jipang atas bantuan Ki Ageng Pemanahan dan Ki Penjawi. Memindahkan pusat kekuasaan dari pesisir (Demak) ke pedalaman Jawa untuk pertama kalinya. Runtuh akibat pemberontakan Sutawijaya (kelak Panembahan Senopati, pendiri Mataram).",
+    ekonomi: "Bergantung sepenuhnya pada sektor agraris (pertanian padi lahan irigasi); meninggalkan orientasi ekonomi maritim Demak.",
+    sosial: "Awal terbentuknya budaya Islam Kejawen: nilai mistisisme dan spiritualitas Jawa berpadu dengan syariat Islam, membentuk identitas Jawa pedalaman yang bertahan hingga kini.",
+    peninggalan: "Makam Sultan Hadiwijaya di Laweyan; seni batik pedalaman gaya Pajang yang menjadi cikal bakal batik Surakarta",
+    analisis: "Pajang adalah periode transisi singkat namun strategis: mengakhiri dominasi pesisir Demak dan membuka era pedalaman Jawa yang lebih agraris dan mistis. Tanpa Pajang, tidak akan ada Mataram Islam yang menjadi kerajaan terbesar di Jawa.",
+    color: "#2A8A9A", wilayah_tag: "Jawa · Jawa Tengah"
+  },
+  {
+    nama: "Mataram Islam", lokasi: "Kotagede — kini Yogyakarta dan sekitarnya", waktu: "1586 M – 1755 M (Perjanjian Giyanti)", raja: "Panembahan Senopati (pendiri); Sultan Agung Hanyokrokusumo (puncak kejayaan); Amangkurat I–IV (era kemunduran)",
+    wilayah: "Hampir seluruh Jawa Tengah dan Jawa Timur; pada puncaknya menguasai hampir seluruh Pulau Jawa",
+    politik: "Kerajaan Islam terbesar dan terkuat di Jawa. Sultan Agung menyerang markas VOC di Batavia dua kali (1628 dan 1629). Runtuh akibat intervensi VOC — Perjanjian Giyanti (1755) membagi Mataram menjadi Kesultanan Yogyakarta dan Kasunanan Surakarta, disusul Perjanjian Salatiga (1757).",
+    ekonomi: "Kekuatan agraris absolut — pemasok beras terbesar Nusantara. Sultan Agung mendirikan sistem kalender Jawa Islam (1633 M) yang mengatur siklus pertanian dan kehidupan.",
+    sosial: "Sistematisasi sinkretisme Islam-Jawa; terbentuknya stratifikasi sosial Jawa (priyayi, santri, abangan). Sultan Agung memperpadukan Islam dan tradisi Jawa dalam satu sistem tata negara.",
+    peninggalan: "Kitab Sastra Gending; Kompleks Makam Raja-raja di Imogiri; Keraton Yogyakarta dan Kasunanan Surakarta; Sistem Kalender Jawa Islam",
+    analisis: "Kegagalan dua kali penyerangan VOC (1628–1629) menjadi titik balik: Mataram beralih dari ekspansi militer ke pengembangan budaya. Intervensi VOC dalam perebutan takhta (Amangkurat I–IV) adalah pelajaran pahit tentang bagaimana kekuatan kolonial menghancurkan kedaulatan dari dalam.",
+    color: "#C9962A", wilayah_tag: "Jawa · D.I. Yogyakarta"
+  },
+  {
+    nama: "Kesultanan Banten", lokasi: "Banten Lama — ujung barat Pulau Jawa", waktu: "1526 M – 1813 M", raja: "Sultan Hasanuddin (pendiri); Sultan Ageng Tirtayasa (puncak kejayaan & perlawanan VOC)",
+    wilayah: "Seluruh wilayah Banten hingga sebagian Jawa Barat dan Lampung",
+    politik: "Kekuatan maritim besar yang berhasil mengusir Portugis dari Sunda Kelapa (1527). Sultan Ageng Tirtayasa membangun infrastruktur canggih dan armada tempur melawan VOC. Runtuh saat Sultan Haji (putra Sultan Ageng) berkhianat dan meminta bantuan VOC melawan ayahnya.",
+    ekonomi: "Pelabuhan internasional tersibuk di Jawa Barat — menampung pedagang dari Arab, Persia, India, Cina, dan Eropa. Komoditas utama: lada hitam, beras, dan kayu.",
+    sosial: "Masyarakat kosmopolitan dan terbuka. Banten menjadi pusat penyebaran Islam di Jawa Barat, Lampung, dan Kalimantan Selatan.",
+    peninggalan: "Masjid Agung Banten dengan Menara Mercusuar (abad ke-16, satu-satunya di Indonesia); Keraton Surosowan; Keraton Kaibon; Benteng Speelwijk; Vihara Avalokitesvara Banten (bukti toleransi)",
+    analisis: "Banten adalah korban paling tragis dari strategi Divide et Impera VOC. Pengkhianatan Sultan Haji terhadap ayah kandungnya (Sultan Ageng) adalah preseden sejarah yang menunjukkan betapa berbahayanya intervensi asing dalam dinasti — warisan sejarah yang perlu direnungkan.",
+    color: "#2A8A9A", wilayah_tag: "Jawa · Banten"
+  },
+  {
+    nama: "Gowa-Tallo (Makassar)", lokasi: "Sungguminasa dan Makassar — Sulawesi Selatan", waktu: "Abad ke-14 M – 1667 M (Perjanjian Bongaya)", raja: "Sultan Alauddin (raja Muslim pertama Gowa); Sultan Hasanuddin — 'Ayam Jantan dari Timur'",
+    wilayah: "Sulawesi Selatan, dengan pengaruh maritim hingga NTB, NTT, dan Maluku",
+    politik: "Kerajaan kembar (Gowa dan Tallo bersatu). Memeluk Islam pada 1605 M atas dakwah dari Minangkabau. Sultan Hasanuddin melawan VOC yang bersekutu dengan Aru Palaka (Bone). Perjanjian Bongaya (1667) memaksa Gowa menyerahkan hak berdagang bebas.",
+    ekonomi: "Bandar transit utama rempah-rempah dari Maluku ke Malaka. Memiliki Hukum Laut Amanna Gappa — sistem hukum maritim paling maju di Nusantara. Menentang monopoli VOC demi kebebasan berdagang.",
+    sosial: "Suku pelaut tangguh; pencipta kapal Pinisi yang mengarungi seluruh Nusantara. Menyebarkan Islam ke Nusa Tenggara, Maluku, dan Papua bagian barat.",
+    peninggalan: "Benteng Somba Opu; Benteng Rotterdam (Fort Rotterdam, direbut Belanda); Istana Balla Lompoa; Hukum Laut Amanna Gappa; tradisi Mappacci",
+    analisis: "Kekalahan Gowa-Tallo dalam Perjanjian Bongaya (1667) secara efektif mematikan perdagangan bebas pribumi di Indonesia Timur dan menyerahkan monopoli rempah kepada VOC. Perlawanan Sultan Hasanuddin adalah simbol gagah berani seorang raja Muslim melawan hegemoni kolonial.",
+    color: "#C9962A", wilayah_tag: "Sulawesi · Sulawesi Selatan"
+  },
+  {
+    nama: "Ternate & Tidore", lokasi: "Pulau Ternate dan Pulau Tidore — Maluku Utara", waktu: "Abad ke-13 M – masa kolonial Hindia Belanda", raja: "Sultan Baabullah (Ternate — mengusir Portugis); Sultan Nuku Muhammad Amiruddin (Tidore — melawan Belanda)",
+    wilayah: "Kepulauan Maluku Utara — Ternate memimpin Uli Lima, Tidore memimpin Uli Siwa",
+    politik: "Dua kerajaan bertetangga yang sering bersaing namun bersatu menghadapi kolonial. Ternate berhasil mengusir Portugis di bawah Sultan Baabullah (1575). Tidore di bawah Sultan Nuku melakukan perlawanan heroik melawan Belanda di akhir abad ke-18.",
+    ekonomi: "Penghasil tunggal Cengkeh dan Pala dunia (The Spice Islands) yang menjadi pemicu utama era penjelajahan samudra Eropa. Kekayaan rempah ini yang mendorong Portugis, Spanyol, dan Belanda berlomba menguasai Maluku.",
+    sosial: "Islam masuk dengan mengakomodasi dewan adat (Bobato) dalam struktur pemerintahan — Islam dan adat berjalan beriringan. Suku Ternate dan Tidore adalah pelaut dan pedagang rempah yang ulung.",
+    peninggalan: "Kedaton Kesultanan Ternate; Masjid Tua Sultan Ternate; Benteng Oranje (direbut VOC); Benteng Tolukko; Kedaton Tidore di Soasio",
+    analisis: "Kutukan Sumber Daya Alam (Resource Curse) paling nyata dalam sejarah Indonesia: kekayaan cengkeh dan pala justru mengundang penaklukan oleh Portugis, Spanyol, dan VOC. Perlawanan Sultan Baabullah dan Sultan Nuku menunjukkan bahwa kedaulatan akan selalu dipertahankan meski menghadapi kekuatan yang jauh lebih besar.",
+    color: "#2A8A9A", wilayah_tag: "Maluku · Maluku Utara"
+  },
+  {
+    nama: "Kesultanan Bima", lokasi: "Bima — ujung timur Pulau Sumbawa, Nusa Tenggara Barat", waktu: "1640 M – 1958 M (bergabung dengan RI)", raja: "Abdul Kahir (Sultan Bima pertama, memeluk Islam 1640 M); Sultan Ibrahim (masa kejayaan); Sultan Muhammad Salahuddin (pahlawan nasional, sultan terakhir)",
+    wilayah: "Wilayah Bima dan Dompu (bagian timur Pulau Sumbawa)",
+    politik: "Islam masuk ke Bima melalui dakwah dari Makassar (Gowa-Tallo) pada 1621 M. Raja La Ka'i memeluk Islam dan bergelar Sultan Abdul Kahir pada 1640 M. Bima menjadi kesultanan Islam terpenting di Nusa Tenggara. Sultan Muhammad Salahuddin diakui sebagai Pahlawan Nasional karena perjuangannya melawan penjajah.",
+    ekonomi: "Komoditas utama: kuda Sumbawa (terkenal di seluruh Nusantara), beras, hasil laut, dan kayu cendana. Pelabuhan Bima menjadi titik dagang penting di jalur Nusantara Timur.",
+    sosial: "Terbentuknya budaya Islam khas Bima: 'Maja Labo Dahu' (malu dan takut — falsafah hidup orang Bima) yang berpadu dengan nilai-nilai Islam. Perempuan Bima dikenal dengan tradisi menenun songket bermotif islami.",
+    peninggalan: "Istana Kesultanan Bima (Asi Mbojo) yang kini menjadi Museum Asi Mbojo; Masjid Sultan Bima; Makam Sultan-sultan Bima di Tolobali; Naskah Bo (kronik sejarah Bima dalam aksara Arab-Melayu); kain Tembe Nggoli (tenun tradisional Bima)",
+    analisis: "Bima memperlihatkan pola Islamisasi Indonesia Timur: Islam masuk melalui jaringan kerajaan Islam yang sudah ada (Makassar → Bima), bukan langsung dari Timur Tengah. Hal ini membuktikan peran kesultanan-kesultanan Nusantara sebagai agen Islamisasi internal yang mengalir dari barat ke timur Kepulauan Indonesia.",
+    color: "#C9962A", wilayah_tag: "Nusa Tenggara · NTB"
+  }
+];
+
+function renderKerajaan() {
+  const container = document.getElementById('kerajaanList');
+  container.innerHTML = kerajaanData.map((k, i) => `
+    <div class="kerajaan-item" id="kr-${i}">
+      <div class="kerajaan-header" onclick="toggleKerajaan(${i})">
+        <div class="kerajaan-num">${(i+1).toString().padStart(2,'0')}</div>
+        <div class="kerajaan-meta">
+          <div class="kerajaan-name">${k.nama}</div>
+          <div class="kerajaan-sub">${k.lokasi} &nbsp;·&nbsp; ${k.waktu}</div>
+        </div>
+        <div class="kerajaan-toggle">▾</div>
+      </div>
+      <div class="kerajaan-body">
+        <div class="kerajaan-content">
+          <div class="kinfo-block">
+            <div class="kinfo-title">Informasi Umum</div>
+            <div class="kinfo-row"><div class="kinfo-key">Raja Terkenal</div><div class="kinfo-val">${k.raja}</div></div>
+            <div class="kinfo-row"><div class="kinfo-key">Perekonomian</div><div class="kinfo-val">${k.ekonomi}</div></div>
+          </div>
+          <div class="kinfo-block">
+            <div class="kinfo-title">Sosial Budaya & Peninggalan</div>
+            <div class="kinfo-row"><div class="kinfo-key">Sosial</div><div class="kinfo-val">${k.sosial}</div></div>
+            <div class="kinfo-row"><div class="kinfo-key">Peninggalan</div><div class="kinfo-val">${k.peninggalan}</div></div>
+          </div>
+          <div class="kanalisis">
+            <div class="kanalisis-label">Analisis Kritis</div>
+            <p>${k.analisis}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleKerajaan(i) {
+  const el = document.getElementById('kr-'+i);
+  el.classList.toggle('open');
+}
+
+const quizData = [
+  {
+    q: "Teori Gujarat mengalami kelemahan mendasar karena adanya perbedaan antara mazhab yang berkembang di Nusantara dengan mazhab di Gujarat. Perbedaan mazhab apakah yang dimaksud?",
+    opts: ["Nusantara bermazhab Hanafi; Gujarat bermazhab Syafi'i","Nusantara bermazhab Syafi'i; Gujarat bermazhab Hanafi","Keduanya bermazhab Maliki, namun berbeda aliran","Nusantara bermazhab Hambali; Gujarat bermazhab Syafi'i"],
+    ans: 1,
+    explain: "Mayoritas Muslim di Nusantara menganut Mazhab Syafi'i, yang juga merupakan mazhab dominan di Makkah. Sementara itu, Gujarat, India menganut Mazhab Hanafi. Kontradiksi ini melemahkan klaim bahwa Islam Nusantara berasal dari Gujarat."
+  },
+  {
+    q: "Sunan Kalijaga menggunakan Wayang Kulit sebagai media dakwah. Pendekatan ini merupakan contoh penerapan saluran penyebaran Islam melalui...",
+    opts: ["Perdagangan dan ekonomi","Jalur politik dan kenegaraan","Kesenian dan budaya lokal","Sistem perkawinan bangsawan"],
+    ans: 2,
+    explain: "Sunan Kalijaga menyisipkan nilai-nilai Islam (termasuk kalimat syahadat) ke dalam lakon Wayang Kulit — sebuah media seni yang sudah dikenal masyarakat. Ini adalah strategi dakwah melalui jalur kesenian dan budaya, bukan paksaan."
+  },
+  {
+    q: "Jatuhnya Kota Malaka ke tangan Portugis pada tahun 1511 M secara langsung memberikan dampak bagi kebangkitan kerajaan Islam manakah di Nusantara?",
+    opts: ["Samudera Pasai","Kerajaan Demak","Kerajaan Aceh Darussalam","Kerajaan Banten"],
+    ans: 2,
+    explain: "Setelah Malaka jatuh ke Portugis (1511), pedagang Muslim memindahkan jalur perdagangannya ke pesisir barat Sumatra. Hal ini secara langsung menyebabkan kebangkitan ekonomi dan militer Kesultanan Aceh Darussalam."
+  },
+  {
+    q: "Perjanjian Bongaya (1667) yang ditandatangani antara VOC dan Kerajaan Gowa-Tallo memberikan dampak jangka panjang yang paling signifikan terhadap...",
+    opts: ["Berakhirnya kekuasaan Islam di Sulawesi Selatan","Hancurnya jaringan perdagangan bebas pribumi di Indonesia Timur","Terbentuknya persekutuan Uli Lima dan Uli Siwa","Islamisasi wilayah Nusa Tenggara oleh Makassar"],
+    ans: 1,
+    explain: "Perjanjian Bongaya (1667) secara efektif mematikan jaringan perdagangan bebas pribumi di Indonesia Timur dan menyerahkan monopoli rempah-rempah secara total kepada VOC. Gowa-Tallo, yang selama ini menentang monopoli, akhirnya takluk."
+  },
+  {
+    q: "Kalender Jawa Islam merupakan karya jenius karena memadukan dua sistem penanggalan yang berbeda. Kedua sistem tersebut adalah...",
+    opts: ["Kalender Masehi (Gregorian) dan Kalender Hijriah","Kalender Saka Hindu dan Kalender Hijriah Islam","Kalender Jawa Kuno dan Kalender Masehi","Kalender Saka Hindu dan Kalender Masehi"],
+    ans: 1,
+    explain: "Sultan Agung dari Mataram Islam menciptakan Kalender Jawa Islam pada tahun 1633 M dengan memadukan Tahun Saka Hindu (berbasis matahari) dengan sistem penghitungan Hijriah (berbasis bulan). Nama bulannya pun di-Jawa-kan, contohnya Muharram menjadi Suro."
+  },
+  {
+    q: "Tradisi Tabot/Tabuik di Sumatra yang memperingati tanggal 10 Muharram menjadi bukti pendukung teori masuknya Islam dari...",
+    opts: ["Gujarat (India)","Persia (Iran)","Semenanjung Arab (Makkah)","Tiongkok"],
+    ans: 1,
+    explain: "Tradisi Tabot/Tabuik memperingati Hari Asyura (10 Muharram), yang merupakan tradisi khas aliran Syiah — salah satu cabang Islam yang sangat kuat di Persia (Iran). Hal ini menjadi bukti yang diajukan oleh Hoesein Djajadiningrat untuk mendukung Teori Persia."
+  },
+  {
+    q: "Kehancuran Kerajaan Banten akibat konflik antara Sultan Ageng Tirtayasa dan putranya Sultan Haji yang dibantu VOC merupakan contoh penerapan strategi kolonial yang disebut...",
+    opts: ["Terra Nullius","Divide et Impera","Cultuur Stelsel","Open Door Policy"],
+    ans: 1,
+    explain: "Devide et Impera (Divide et Impera) adalah strategi adu domba — memecah belah kekuatan lokal dengan memanfaatkan konflik internal mereka. VOC membantu Sultan Haji melawan ayahnya sendiri (Sultan Ageng Tirtayasa), yang pada akhirnya meruntuhkan Kerajaan Banten dari dalam."
+  },
+  {
+    q: "Tradisi Sekaten di Keraton Yogyakarta dan Surakarta diduga berasal dari kata 'Syahadatain'. Manakah pernyataan yang PALING tepat menggambarkan Sekaten sebagai bentuk akulturasi?",
+    opts: ["Sekaten hanyalah perayaan budaya tanpa unsur Islam sama sekali","Sekaten adalah perayaan Islam murni yang menggantikan seluruh tradisi Jawa","Sekaten memadukan gamelan Jawa (budaya lokal) dengan peringatan Maulid Nabi (Islam) dalam satu rangkaian acara","Sekaten adalah upacara dari zaman Hindu-Buddha yang diubah nama menjadi Islami"],
+    ans: 2,
+    explain: "Sekaten adalah contoh sempurna akulturasi: gamelan pusaka — alat musik Jawa asli — ditabuh di halaman masjid untuk memperingati Maulid Nabi Muhammad SAW. Elemen kesenian lokal (gamelan) berpadu dengan nilai Islam (Maulid Nabi) tanpa menghapus salah satunya."
+  },
+  {
+    q: "Mengapa fenomena kekayaan rempah-rempah di Ternate dan Tidore justru disebut sebagai 'kutukan sumber daya alam' (Resource Curse) dalam konteks sejarah?",
+    opts: ["Karena rempah-rempah menyebabkan kelaparan di Maluku","Karena kekayaan rempah mengundang imperialisme Barat yang akhirnya menghancurkan kedaulatan lokal","Karena rakyat Ternate dan Tidore tidak bisa memakan rempah-rempah","Karena rempah-rempah membuat Ternate dan Tidore bersaing dan melemahkan diri sendiri"],
+    ans: 1,
+    explain: "Kekayaan cengkeh dan pala di Maluku menjadi daya tarik utama bangsa Eropa (Portugis, Spanyol, Belanda) untuk datang, bersaing, dan akhirnya menguasai wilayah tersebut. Alih-alih membawa kemakmuran, kekayaan alam justru mengundang kolonialisme yang menghancurkan kedaulatan kerajaan-kerajaan lokal."
+  },
+  {
+    q: "Konsep atap masjid berbentuk 'tumpang' (bersusun 3 atau 5) yang ditemukan pada masjid-masjid tua di Jawa merupakan hasil akulturasi dengan unsur budaya...",
+    opts: ["Arsitektur Arab (Timur Tengah) berupa kubah","Bentuk Meru pada pura Hindu yang melambangkan gunung suci","Arsitektur pagoda Tiongkok yang dibawa pedagang Cina","Bentuk candi Buddha yang dimodifikasi"],
+    ans: 1,
+    explain: "Atap tumpang pada masjid-masjid tua di Jawa (contoh: Masjid Agung Demak) merupakan adaptasi dari bentuk Meru — atap bertingkat pada pura Hindu yang melambangkan Gunung Meru sebagai tempat tinggal para dewa. Ini adalah akulturasi arsitektur yang sangat nyata."
+  }
+];
+
+let currentQ = 0, score = 0, answered = false;
+const visited = new Set();
+
+function renderQuiz() {
+  if (currentQ >= quizData.length) {
+    document.getElementById('quizContainer').style.display = 'none';
+    const result = document.getElementById('quizResult');
+    result.classList.add('show');
+    document.getElementById('resultScore').textContent = score + '/' + quizData.length;
+    const pct = (score/quizData.length)*100;
+    let msg = pct >= 80 ? "Luar biasa! Kamu menguasai materi Islam di Nusantara dengan sangat baik. Siap menghadapi UTBK!" : pct >= 60 ? "Bagus! Pemahamanmu sudah cukup solid. Pelajari kembali poin-poin yang masih keliru." : "Jangan menyerah! Baca ulang modulnya dan coba lagi. Pemahaman butuh proses.";
+    document.getElementById('resultMsg').textContent = msg;
+    updateProgress(100);
+    return;
+  }
+  const q = quizData[currentQ];
+  const letters = ['A','B','C','D'];
+  document.getElementById('quizContainer').innerHTML = `
+    <div class="quiz-status">
+      <div class="quiz-status-num">Soal ${currentQ+1} dari ${quizData.length}</div>
+      <div class="quiz-score-badge">Skor: ${score}</div>
+    </div>
+    <div class="quiz-q-card">
+      <div class="quiz-q-text">${q.q}</div>
+      <div class="quiz-options">
+        ${q.opts.map((o,i) => `<button class="quiz-opt" onclick="answerQuiz(${i})" id="opt-${i}">
+          <span class="opt-letter">${letters[i]}</span><span>${o}</span>
+        </button>`).join('')}
+      </div>
+      <div class="quiz-feedback" id="feedback"></div>
+    </div>
+    <div class="quiz-nav-btns">
+      <button class="btn-quiz btn-primary" id="nextBtn" onclick="nextQ()" style="display:none">Soal Berikutnya →</button>
+    </div>
+  `;
+  answered = false;
+}
+
+function answerQuiz(choice) {
+  if (answered) return;
+  answered = true;
+  const q = quizData[currentQ];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.disabled = true);
+  if (choice === q.ans) {
+    score++;
+    opts[choice].classList.add('correct');
+    const fb = document.getElementById('feedback');
+    fb.className = 'quiz-feedback show correct';
+    fb.textContent = '✓ Benar! ' + q.explain;
+  } else {
+    opts[choice].classList.add('wrong');
+    opts[q.ans].classList.add('correct');
+    const fb = document.getElementById('feedback');
+    fb.className = 'quiz-feedback show wrong';
+    fb.textContent = '✗ Kurang tepat. ' + q.explain;
+  }
+  document.getElementById('nextBtn').style.display = 'block';
+  visited.add(currentQ);
+  updateProgress(Math.round((visited.size / quizData.length) * 100 * 0.2 + 80));
+}
+
+function nextQ() {
+  currentQ++;
+  renderQuiz();
+}
+
+function restartQuiz() {
+  currentQ = 0; score = 0; answered = false;
+  document.getElementById('quizResult').classList.remove('show');
+  document.getElementById('quizContainer').style.display = 'block';
+  renderQuiz();
+}
+
+const sections = ['home','teori','kerajaan','pengaruh','quiz','glosarium'];
+const visitedSections = new Set(['home']);
+
+function showSection(name) {
+  sections.forEach(s => {
+    document.getElementById('sec-'+s)?.classList.remove('active');
+    document.querySelectorAll('.nav-tab').forEach((t,i) => {
+      t.classList.toggle('active', sections[i] === name);
+    });
+  });
+  document.getElementById('sec-'+name)?.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  visitedSections.add(name);
+  updateProgress(Math.round(visitedSections.size / sections.length * 60));
+  if (name === 'quiz' && currentQ === 0 && !answered) renderQuiz();
+}
+
+function enterApp() {
+  document.getElementById('splash').classList.add('hidden');
+  setTimeout(() => {
+    document.getElementById('app').classList.add('visible');
+    document.getElementById('splash').style.display = 'none';
+  }, 800);
+}
+
+function showTeori(name) {
+  document.querySelectorAll('.teori-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.teori-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('teori-'+name)?.classList.add('active');
+  event.target.classList.add('active');
+}
+
+function showPengaruh(name) {
+  document.querySelectorAll('.pengaruh-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.pengaruh-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pen-'+name)?.classList.add('active');
+  event.target.classList.add('active');
+}
+
+function updateProgress(pct) {
+  document.getElementById('progressFill').style.width = Math.min(pct,100)+'%';
+  document.getElementById('progressLabel').textContent = Math.min(pct,100)+'%';
+}
+
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollTop');
+  btn.classList.toggle('visible', window.scrollY > 400);
+});
+
+renderKerajaan();
+</script>
+</body>
+</html>
